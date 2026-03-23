@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <script>
 (function(){
-  var h='5765e2048b29b26e7be03750d945d396c0e3a95af861451a5837670217359c0f';
+  var h='795b9ac32a52d8558c97f7917e60140ee2cbc60929310d5cfb9be36640473f59';
   function s2h(s){return crypto.subtle.digest('SHA-256',new TextEncoder().encode(s)).then(function(b){return Array.from(new Uint8Array(b)).map(function(x){return x.toString(16).padStart(2,'0')}).join('')})}
   if(sessionStorage.getItem('bb_ok')==='1')return;
   document.addEventListener('DOMContentLoaded',function(){
