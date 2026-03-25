@@ -3,433 +3,1209 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>蔡阿達 — 個人會議戰情室</title>
-<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&family=Inter:wght@400;500;600;700;800&family=Noto+Sans+TC:wght@400;500;700;900&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<script>
+(function(){
+  var h='795b9ac32a52d8558c97f7917e60140ee2cbc60929310d5cfb9be36640473f59';
+  function s2h(s){return crypto.subtle.digest('SHA-256',new TextEncoder().encode(s)).then(function(b){return Array.from(new Uint8Array(b)).map(function(x){return x.toString(16).padStart(2,'0')}).join('')})}
+  if(sessionStorage.getItem('bb_ok')==='1')return;
+  document.addEventListener('DOMContentLoaded',function(){
+    document.getElementById('bb-content').style.display='none';
+    document.getElementById('bb-gate').style.display='flex';
+    document.getElementById('bb-pw').addEventListener('keydown',function(e){if(e.key==='Enter')document.getElementById('bb-go').click()});
+    document.getElementById('bb-go').addEventListener('click',function(){
+      var pw=document.getElementById('bb-pw').value;
+      s2h(pw).then(function(r){
+        if(r===h){sessionStorage.setItem('bb_ok','1');document.getElementById('bb-gate').style.display='none';document.getElementById('bb-content').style.display='block'}
+        else{document.getElementById('bb-err').style.display='block';document.getElementById('bb-pw').value=''}
+      })
+    })
+  })
+})();
+</script>
+<title>awoo BD 全客戶戰情總覽 ｜ 02/23 - 03/25</title>
+<link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@400;700;900&family=Bebas+Neue&family=Bangers&family=Fredoka:wght@400;600;700&family=IBM+Plex+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700;900&display=swap" rel="stylesheet">
 <style>
-:root{--y:#FFD600;--m:#FF2D7B;--c:#00E5FF;--b:#304FFE;--o:#FF6D00;--g:#00E676;--k:#1A1A2E;--w:#FFFDE7;--r:#FF1744;--p:#AA00FF}
+:root{--y:#FFD600;--m:#FF2D7B;--c:#00E5FF;--b:#304FFE;--o:#FF6D00;--g:#00E676;--k:#1A1A2E;--w:#FFFDE7;--r:#FF1744;--leon:#304FFE;--aiden:#FF6D00;--bryan:#00C853;--rebecca:#FF2D7B}
 *{margin:0;padding:0;box-sizing:border-box}
-body{font-family:'Inter','Noto Sans TC',sans-serif;font-size:16px;line-height:1.7;background:var(--w);color:var(--k);background-image:radial-gradient(circle,#ddd 2px,transparent 2px);background-size:18px 18px}
-
+body{font-family:'IBM Plex Sans','Noto Sans TC','Zen Maru Gothic',sans-serif;font-size:15px;line-height:1.7;background:var(--w);color:var(--k);background-image:radial-gradient(circle,#ddd 2px,transparent 2px);background-size:18px 18px}
 .hd{background:var(--k);color:var(--y);padding:20px 24px;border-bottom:6px solid var(--m)}
-.hd h1{font-family:'Fredoka','Noto Sans TC',sans-serif;font-weight:700;font-size:clamp(22px,5vw,40px);letter-spacing:2px;text-shadow:3px 3px 0 var(--m),-1px -1px 0 var(--c)}
-.hd .sub{font-size:16px;color:var(--c);font-weight:700;margin-top:4px}
-.hd .badge{display:inline-block;background:var(--m);color:#fff;padding:3px 14px;border-radius:16px;font-weight:900;font-size:16px;margin-top:6px}
-
-.sb{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));border-bottom:4px solid var(--k)}
+.hd h1{font-family:'Fredoka','Noto Sans TC',sans-serif;font-weight:700;font-size:clamp(24px,5vw,48px);letter-spacing:3px;text-shadow:3px 3px 0 var(--m),-1px -1px 0 var(--c)}
+.hd .sub{font-size:15px;color:var(--c);font-weight:700;margin-top:4px}
+.hd .badge{display:inline-block;background:var(--m);color:#fff;padding:3px 14px;border-radius:16px;font-weight:900;font-size:14px;margin-top:6px}
+.sb{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));border-bottom:4px solid var(--k)}
 .sc{padding:12px 16px;text-align:center;border-right:3px solid var(--k);border-bottom:3px solid var(--k)}
 .sc:nth-child(1){background:var(--y)}.sc:nth-child(2){background:var(--c)}.sc:nth-child(3){background:var(--m);color:#fff}.sc:nth-child(4){background:var(--g)}.sc:nth-child(5){background:var(--o);color:#fff}.sc:nth-child(6){background:var(--b);color:#fff}
-.sn{font-family:'JetBrains Mono';font-size:36px;line-height:1;font-weight:700}
-.sl{font-size:16px;font-weight:900;letter-spacing:1px;margin-top:2px}
-
+.sn{font-family:'Bebas Neue';font-size:36px;line-height:1}.sl{font-size:14px;font-weight:900;letter-spacing:1px;margin-top:2px}
 .tc{padding:0 12px}
-.tn{display:flex;gap:0;margin-top:16px;border-bottom:4px solid var(--k);flex-wrap:wrap}
-.tb{flex:1;min-width:100px;padding:12px 6px;border:3px solid var(--k);border-bottom:none;font-family:'Inter','Noto Sans TC',sans-serif;font-size:clamp(13px,2vw,17px);font-weight:700;letter-spacing:1px;cursor:pointer;text-align:center;background:#eee;color:var(--k);position:relative;top:4px;border-radius:10px 10px 0 0;transition:all .12s}
-.tb:hover{transform:translateY(-2px)}.tb.on{top:0;border-bottom:4px solid var(--w);z-index:2;background:var(--k);color:var(--y)}
+.tn{display:flex;gap:0;margin-top:16px;border-bottom:4px solid var(--k)}
+.tb{flex:1;padding:12px 6px;border:3px solid var(--k);border-bottom:none;font-family:'Bangers',cursive;font-size:clamp(14px,2.5vw,24px);letter-spacing:2px;cursor:pointer;text-align:center;background:#eee;color:var(--k);position:relative;top:4px;border-radius:10px 10px 0 0;transition:all .12s}
+.tb:hover{transform:translateY(-2px)}
+.tb.on{top:0;border-bottom:4px solid var(--w);z-index:2}
+.tb[data-a="leon"]{border-color:var(--leon)}.tb[data-a="leon"].on{background:var(--leon);color:#fff}
+.tb[data-a="aiden"]{border-color:var(--aiden)}.tb[data-a="aiden"].on{background:var(--aiden);color:#fff}
+.tb[data-a="bryan"]{border-color:var(--bryan)}.tb[data-a="bryan"].on{background:var(--bryan);color:#fff}
+.tb[data-a="rebecca"]{border-color:var(--rebecca)}.tb[data-a="rebecca"].on{background:var(--rebecca);color:#fff}
 .tp{display:none;padding:16px 0 40px}.tp.on{display:block}
-.st{font-family:'Inter','Noto Sans TC',sans-serif;font-size:20px;font-weight:800;letter-spacing:1px;padding:6px 14px;margin:16px 0 10px;border-left:6px solid;display:flex;align-items:center;gap:8px}
-
-details.cc{border:3px solid var(--k);border-radius:10px;overflow:hidden;background:#fff;transition:transform .12s,box-shadow .12s;margin-bottom:12px}
-details.cc:hover{transform:translateY(-2px);box-shadow:4px 4px 0 var(--k)}
-details.cc>summary{padding:12px 16px;font-weight:900;font-size:17px;display:flex;justify-content:space-between;align-items:center;cursor:pointer;list-style:none;border-bottom:2px solid transparent}
-details.cc>summary::-webkit-details-marker{display:none}
-details.cc[open]>summary{border-bottom-color:var(--k);background:#fafafa}
-.tag{font-size:14px;padding:3px 10px;border-radius:8px;font-weight:700;margin-left:6px}
-.tag-partner{background:#E8EAF6;color:var(--b)}
-.tag-internal{background:#E0F7FA;color:#00838F}
-.tag-client{background:#FFF3E0;color:var(--o)}
-.tag-company{background:#FCE4EC;color:var(--m)}
-.tag-bni{background:#FFEBEE;color:#D32F2F}
-.tag-tools{background:#F3E5F5;color:#6A1B9A}
-.tag-events{background:#E0F2F1;color:#00695C}
-.cd{font-family:'JetBrains Mono';font-size:13px;background:var(--k);color:#fff;padding:1px 7px;border-radius:6px;margin-left:6px}
-.right{display:flex;align-items:center;gap:4px;flex-shrink:0}
-.arrow{transition:transform .2s;font-size:14px;color:#999;margin-left:6px}
-details.cc[open]>summary .arrow{transform:rotate(180deg)}
-.updated-badge{font-size:13px;color:#999;font-weight:500;margin-left:8px}
-
-.cb{padding:14px 16px;font-size:16px;line-height:1.7}
-.one-liner{font-weight:900;font-size:17px;color:var(--k);margin-bottom:8px;padding:4px 0;border-bottom:2px dashed #eee}
-.key-points{margin:0;padding-left:18px}.key-points li{margin-bottom:5px;font-size:16px}
-.nums{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
-.num-chip{background:#f5f5f5;border:2px solid #eee;border-radius:8px;padding:3px 12px;font-size:14px;font-weight:700;font-family:'JetBrains Mono',monospace}
-.source-tag{display:inline-block;font-size:13px;padding:2px 8px;border-radius:6px;background:#f0f0f0;color:#666;margin-right:4px;margin-bottom:4px}
-.actions{margin-top:12px;display:flex;gap:8px;flex-wrap:wrap}
-.actions a,.actions button{font-size:14px;font-weight:700;padding:7px 16px;border-radius:8px;cursor:pointer;text-decoration:none;border:2px solid var(--k);transition:all .1s;font-family:inherit}
-.btn-detail{background:var(--y);color:var(--k)}.btn-detail:hover{background:var(--o);color:#fff}
-.btn-doc{background:#fff;color:var(--b)}.btn-doc:hover{background:var(--b);color:#fff}
-.todo-list{margin-top:12px;padding:10px 14px;background:#FFFDE7;border-left:4px solid var(--y);border-radius:0 8px 8px 0}
-.todo-list h5{font-size:14px;color:var(--o);margin-bottom:6px;font-weight:900}
-.todo-list li{color:#555;margin-bottom:3px;font-size:16px}
-
+/* Profile */
+.pf{display:flex;align-items:center;gap:16px;padding:16px;border:4px solid var(--k);border-radius:14px;margin-bottom:16px}
+.av{width:56px;height:56px;border-radius:50%;border:4px solid var(--k);display:flex;align-items:center;justify-content:center;font-family:'Bebas Neue';font-size:24px;color:#fff;flex-shrink:0}
+.pi h2{font-size:18px}.pi .pr{font-size:14px;color:#666}
+.bg{display:inline-block;padding:1px 8px;border-radius:10px;font-size:14px;font-weight:900;border:2px solid;margin:2px}
+/* Section */
+.st{font-family:'Bangers',cursive;font-size:20px;letter-spacing:2px;padding:6px 14px;margin:16px 0 10px;border-left:6px solid;display:flex;align-items:center;gap:8px}
+/* Client Grid */
+.cg{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px;margin-bottom:16px}
+/* Client Card (compact) */
+.cc{border:3px solid var(--k);border-radius:10px;overflow:hidden;background:#fff;cursor:pointer;transition:transform .12s,box-shadow .12s}
+.cc:hover{transform:translateY(-3px);box-shadow:5px 5px 0 var(--k)}
+.ch{padding:10px 14px;font-weight:900;font-size:15px;border-bottom:2px solid var(--k);display:flex;justify-content:space-between;align-items:center}
+.cd{font-family:'Bebas Neue';font-size:14px;background:var(--k);color:#fff;padding:1px 7px;border-radius:6px}
+.cb{padding:10px 14px;font-size:14px;line-height:1.6}
+.ci{display:inline-block;font-size:14px;font-weight:700;padding:0 6px;border-radius:6px;margin-bottom:4px}
+.cs{display:inline-block;padding:1px 8px;border-radius:8px;font-size:14px;font-weight:900;margin-top:6px}
+.s-hot{background:var(--r);color:#fff}.s-warm{background:var(--o);color:#fff}.s-new{background:var(--c);color:var(--k)}.s-go{background:var(--b);color:#fff}.s-done{background:var(--g);color:var(--k)}.s-exist{background:#9E9E9E;color:#fff}
+.cc .hint{font-size:14px;color:#999;margin-top:4px;text-align:right}
+/* Modal */
 .modal-bg{display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(26,26,46,.7);z-index:100;overflow-y:auto;padding:24px}
 .modal-bg.show{display:flex;justify-content:center;align-items:flex-start}
-.modal{background:#fff;border:4px solid var(--k);border-radius:16px;max-width:800px;width:100%;margin:20px auto;overflow:hidden;animation:popIn .2s ease-out}
+.modal{background:#fff;border:4px solid var(--k);border-radius:16px;max-width:760px;width:100%;margin:20px auto;overflow:hidden;animation:popIn .2s ease-out}
 @keyframes popIn{from{transform:scale(.9);opacity:0}to{transform:scale(1);opacity:1}}
-.mh{padding:16px 20px;font-size:18px;font-weight:900;display:flex;justify-content:space-between;align-items:center;border-bottom:4px solid var(--k);background:var(--k);color:var(--y)}
-.mh .close{width:36px;height:36px;border-radius:50%;border:3px solid var(--y);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:18px;font-weight:900;background:transparent;color:var(--y);transition:all .1s}
-.mh .close:hover{background:var(--r);border-color:var(--r);color:#fff}
-.mb{padding:20px;max-height:70vh;overflow-y:auto}
-.mb .meta{font-size:14px;color:#888;margin-bottom:12px;padding:10px 14px;background:#f9f9f9;border-radius:8px}
-.mb h3{font-size:17px;font-weight:900;margin:16px 0 8px;padding:4px 12px;border-left:4px solid var(--b);display:inline-block;border-radius:0 8px 8px 0;background:#E8EAF6}
-.mb .date-divider{font-size:16px;font-weight:900;padding:10px 14px;margin:16px 0 8px;background:var(--k);color:var(--y);border-radius:8px}
-.dlg-line{padding:10px 14px;margin-bottom:8px;border-radius:8px;font-size:16px;line-height:1.7}
-.dlg-ada{background:#E8EAF6;border-left:4px solid var(--b)}
-.dlg-other{background:#FFF3E0;border-left:4px solid var(--o)}
-.dlg-line .speaker{font-weight:900;font-size:14px;margin-bottom:3px}
-.dlg-ada .speaker{color:var(--b)}
-.dlg-other .speaker{color:var(--o)}
-details.dialogue{margin:8px 0;border:2px solid #eee;border-radius:10px;overflow:hidden}
-details.dialogue>summary{padding:10px 14px;background:#f5f5f5;font-weight:900;font-size:16px;cursor:pointer;list-style:none}
-details.dialogue>summary::-webkit-details-marker{display:none}
-.dlg-content{padding:14px}
-
-.todo-card{border:3px solid var(--k);border-radius:10px;padding:16px;margin-bottom:12px;background:#fff}
-.todo-card h4{font-size:17px;font-weight:800;margin-bottom:8px;display:flex;align-items:center;gap:8px}
-.todo-items{padding-left:0;list-style:none}
-.todo-items li{padding:8px 12px;margin-bottom:4px;border-radius:8px;font-size:16px;display:flex;align-items:flex-start;gap:8px;background:#f9f9f9}
-.todo-items li::before{content:'☐';font-size:18px;flex-shrink:0;color:var(--o)}
-.todo-owner{font-size:13px;padding:2px 8px;border-radius:6px;background:var(--k);color:var(--y);font-weight:700;white-space:nowrap}
-
+.mh{padding:16px 20px;font-size:18px;font-weight:900;display:flex;justify-content:space-between;align-items:center;border-bottom:4px solid var(--k)}
+.mh .close{width:36px;height:36px;border-radius:50%;border:3px solid var(--k);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:18px;font-weight:900;background:#fff;transition:all .1s}
+.mh .close:hover{background:var(--r);color:#fff}
+.mb{padding:20px}
+.mb h3{font-size:15px;font-weight:900;margin:16px 0 8px;padding:4px 10px;border-left:4px solid;display:inline-block;border-radius:0 8px 8px 0}
+.mb p,.mb li{font-size:15px;line-height:1.8}
+.mb ul{padding-left:18px;margin-bottom:8px}
+.mb .meta{font-size:14px;color:#888;margin-bottom:12px}
+.mb .tag{display:inline-block;padding:1px 8px;border-radius:8px;font-size:14px;font-weight:700;margin-right:4px;margin-bottom:4px}
+.mb table{width:100%;border-collapse:collapse;font-size:14px;margin:8px 0 16px;border:2px solid #eee;border-radius:8px;overflow:hidden}
+.mb th{background:#f5f5f5;text-align:left;padding:6px 10px;font-size:14px;font-weight:900}
+.mb td{padding:6px 10px;border-top:1px solid #eee;vertical-align:top}
+.pu{color:var(--r);font-weight:900}.ph{color:var(--o);font-weight:900}.pm{color:var(--b);font-weight:700}
+/* Synergy */
+.sy{border:3px dashed;border-radius:14px;padding:16px;margin:12px 0;position:relative}
+.sy::before{content:'🔗 跨 AE 協作機會';position:absolute;top:-12px;left:16px;background:var(--w);padding:0 8px;font-weight:900;font-size:14px}
+.si{padding:6px 0;border-bottom:1px dashed #ccc;font-size:14px;line-height:1.7}
+.si:last-child{border-bottom:none}
+.stg{display:inline-block;padding:0 6px;border-radius:6px;font-size:14px;font-weight:900;margin-right:4px}
+/* Alert */
+.al{padding:12px 16px;border:3px solid;border-radius:10px;margin:10px 0;font-size:14px;line-height:1.7;display:flex;gap:10px;align-items:flex-start}
+.al .ai{font-size:20px;flex-shrink:0}
+.aw{border-color:var(--o);background:#FFF3E0}
+.af{border-color:var(--b);background:#E8EAF6}
+.ag{border-color:var(--g);background:#E8F5E9}
+/* Legend */
+.legend{display:flex;flex-wrap:wrap;gap:8px;padding:8px 12px;margin:8px 0;font-size:14px;font-weight:700}
+.legend span{display:flex;align-items:center;gap:4px}
+.legend .dot{width:14px;height:14px;border-radius:50%;border:2px solid var(--k)}
 .ft{text-align:center;padding:20px;background:var(--k);color:#888;font-size:14px;margin-top:40px;border-top:6px solid var(--m)}
-@media(max-width:640px){.tb{font-size:13px!important;padding:8px 2px;letter-spacing:0}.sb{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:640px){.cg{grid-template-columns:1fr}.tb{font-size:14px!important;padding:8px 2px;letter-spacing:0}.sb{grid-template-columns:repeat(3,1fr)}.pf{flex-direction:column;text-align:center}}
 </style>
 </head>
 <body>
 
-<div class="hd">
-  <h1>⚡ 蔡阿達 — 個人會議戰情室</h1>
-  <div class="sub">awoo 業務開發部資深總監 ｜ 以專案為單位 ｜ 點擊卡片展開詳情，「看對話」查看完整討論</div>
-  <span class="badge" id="header-badge"></span>
+<div id="bb-gate" style="display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:#1A1A2E;z-index:9999;justify-content:center;align-items:center;flex-direction:column;font-family:'IBM Plex Sans','Noto Sans TC',sans-serif">
+  <div style="text-align:center">
+    <div style="font-size:48px;margin-bottom:12px">⚡</div>
+    <h1 style="color:#FFD600;font-size:24px;margin-bottom:8px;letter-spacing:2px">awoo BD 戰情總覽</h1>
+    <p style="color:#00E5FF;font-size:14px;margin-bottom:24px">請輸入密碼以存取</p>
+    <input id="bb-pw" type="password" placeholder="密碼" autofocus style="padding:12px 20px;font-size:16px;border:3px solid #FFD600;border-radius:10px;background:#2a2a4e;color:#fff;outline:none;width:220px;text-align:center">
+    <br>
+    <button id="bb-go" style="margin-top:12px;padding:10px 32px;font-size:16px;font-weight:700;background:#FFD600;color:#1A1A2E;border:3px solid #1A1A2E;border-radius:10px;cursor:pointer;letter-spacing:1px">進入</button>
+    <p id="bb-err" style="display:none;color:#FF1744;font-size:14px;margin-top:12px;font-weight:700">密碼錯誤，請重新輸入</p>
+  </div>
 </div>
 
-<div class="sb" id="stats-bar"></div>
+<div id="bb-content">
+
+<div class="hd">
+  <h1>⚡ awoo BD 全客戶戰情總覽</h1>
+  <div class="sub">業務開發部 ｜ 過年後至今所有客戶接觸紀錄 ｜ 點擊卡片展開完整資訊</div>
+  <span class="badge">📅 2026 / 02 / 23 — 03 / 25 ｜ 累計 78 場會議 ｜ 37+ 客戶</span>
+</div>
+
+<div class="sb">
+  <div class="sc"><div class="sn">78</div><div class="sl">會議總場次</div></div>
+  <div class="sc"><div class="sn">37</div><div class="sl">客戶接觸數</div></div>
+  <div class="sc"><div class="sn">17</div><div class="sl">Leon 客戶數</div></div>
+  <div class="sc"><div class="sn">8</div><div class="sl">Aiden 客戶數</div></div>
+  <div class="sc"><div class="sn">9</div><div class="sl">Bryan 客戶數</div></div>
+  <div class="sc"><div class="sn">4</div><div class="sl">Rebecca 客戶數</div></div>
+</div>
+
+<div class="legend">
+  <span>狀態圖示：</span>
+  <span><span class="dot" style="background:var(--r)"></span> 高機率</span>
+  <span><span class="dot" style="background:var(--o)"></span> 提案中</span>
+  <span><span class="dot" style="background:var(--c)"></span> 初次接觸</span>
+  <span><span class="dot" style="background:var(--b)"></span> 已啟動</span>
+  <span><span class="dot" style="background:var(--g)"></span> 既有客戶</span>
+  <span><span class="dot" style="background:#9E9E9E"></span> 既有服務</span>
+</div>
 
 <div class="tc">
-<div class="tn" id="tab-bar"></div>
-<div id="tab-panels"></div>
+<div class="tn">
+  <button class="tb on" data-a="leon" onclick="sw('leon')">🦁 LEON (17)</button>
+  <button class="tb" data-a="aiden" onclick="sw('aiden')">🔥 AIDEN (8)</button>
+  <button class="tb" data-a="bryan" onclick="sw('bryan')">🚀 BRYAN (9)</button>
+  <button class="tb" data-a="rebecca" onclick="sw('rebecca')">💎 REBECCA (4)</button>
 </div>
 
-<div id="modals-container"></div>
+<!-- ============ LEON ============ -->
+<div id="t-leon" class="tp on">
+<div class="pf" style="border-color:var(--leon);background:linear-gradient(135deg,#E8EAF6,#fff)">
+  <div class="av" style="background:var(--leon)">L</div>
+  <div class="pi">
+    <h2>呂紹平 Leon Lu</h2>
+    <div class="pr">AE ｜ 台北 ｜ E0299 ｜ 17 個客戶接觸</div>
+    <div><span class="bg" style="border-color:var(--leon);color:var(--leon)">🏆 最多客戶接觸</span><span class="bg" style="border-color:var(--g);color:var(--g)">✅ 3 案啟動中</span><span class="bg" style="border-color:var(--o);color:var(--o)">🌐 跨 8 產業</span></div>
+  </div>
+</div>
+<div class="st" style="border-color:var(--leon);color:var(--leon)">📋 所有客戶接觸紀錄（點擊展開）</div>
+<div class="cg">
 
-<!-- ✂️ awoo × 蔡阿達 通用簽名檔（黑底版）-->
-<div class="ft" id="footer-info"></div>
+<div class="cc" onclick="openModal('leon-18')">
+<div class="ch" style="background:#E8EAF6"><span>🏦 旺旺友聯產險</span><span class="cd">03/24</span></div>
+<div class="cb"><span class="ci" style="background:#C5CAE9">金融保險｜媒代合作</span><p>透過媒代展將合作啟動｜WordPress網站為主｜第一份建議書四月連假前｜GEO導向</p><span class="cs s-go">🟣 已啟動</span><div class="hint">▶ 點擊看完整資訊</div></div>
+</div>
+
+<div class="cc" onclick="openModal('leon-17')">
+<div class="ch" style="background:#FFF3E0"><span>🚛 聯廣 FUSO</span><span class="cd">03/23</span></div>
+<div class="cb"><span class="ci" style="background:#FFE0B2">商用車｜代理商合作</span><p>手刻HTML網站無CMS｜需申請固定IP評估後台｜八折報價｜3/25提案</p><span class="cs s-warm">🟠 提案中</span><div class="hint">▶ 點擊看完整資訊</div></div>
+</div>
+
+<div class="cc" onclick="openModal('leon-9')">
+<div class="ch" style="background:#EFEBE9"><span>🧠 湧現智庫</span><span class="cd">03/23</span></div>
+<div class="cb"><span class="ci" style="background:#D7CCC8">AI 技術顧問</span><p>建站顧問 + 15 字 SEO｜7 篇文章 awoo 撰寫｜合約 14 個月 03/01 起</p><span class="cs s-go">🟣 已啟動</span><div class="hint">▶ 點擊看完整資訊</div></div>
+</div>
+
+<div class="cc" onclick="openModal('leon-15')">
+<div class="ch" style="background:#FFF9C4"><span>💉 粹究美學診所</span><span class="cd">03/20</span></div>
+<div class="cb"><span class="ci" style="background:#FFF59D">醫美診所</span><p>AI 監測工具 + 顧問服務規劃｜轉換率提升 4-6 倍｜Line 群即時回應</p><span class="cs s-new">🔵 初次接觸</span><div class="hint">▶ 點擊看完整資訊</div></div>
+</div>
+
+<div class="cc" onclick="openModal('leon-14')">
+<div class="ch" style="background:#FCE4EC"><span>💊 惠比壽日藥直送</span><span class="cd">03/20</span></div>
+<div class="cb"><span class="ci" style="background:#F8BBD0">電商｜日藥</span><p>AI 追蹤工具完整介紹｜建議書每兩月一次｜landing page 集中策略</p><span class="cs s-new">🔵 初次接觸</span><div class="hint">▶ 點擊看完整資訊</div></div>
+</div>
+
+<div class="cc" onclick="openModal('leon-13')">
+<div class="ch" style="background:#E0F2F1"><span>🏠 巷導</span><span class="cd">03/20</span></div>
+<div class="cb"><span class="ci" style="background:#B2DFDB">SaaS｜房屋刊登</span><p>CSR→建議改 SSR｜缺首頁/關於我們｜canonical 錯誤</p><span class="cs s-new">🔵 初次接觸</span><div class="hint">▶ 點擊看完整資訊</div></div>
+</div>
+
+<div class="cc" onclick="openModal('leon-12')">
+<div class="ch" style="background:#FFF3E0"><span>🍼 Mamaway 媽媽餵</span><span class="cd">03/18</span></div>
+<div class="cb"><span class="ci" style="background:#FFE0B2">母嬰用品</span><p>缺結構化資料/EAT/圖片 alt｜母嬰健康專家背書重要｜3-6 月見效</p><span class="cs s-warm">🟠 提案中</span><div class="hint">▶ 點擊看完整資訊</div></div>
+</div>
+
+<div class="cc" onclick="openModal('leon-11')">
+<div class="ch" style="background:#F3E5F5"><span>🧬 双美生物科技</span><span class="cd">03/18</span></div>
+<div class="cb"><span class="ci" style="background:#E1BEE7">生物科技｜醫美原料</span><p>商品頁重複連結問題｜無線上銷售｜需後台權限評估</p><span class="cs s-new">🔵 初次接觸</span><div class="hint">▶ 點擊看完整資訊</div></div>
+</div>
+
+<div class="cc" onclick="openModal('leon-10')">
+<div class="ch" style="background:#E3F2FD"><span>🏭 台灣沛睿德</span><span class="cd">03/16</span></div>
+<div class="cb"><span class="ci" style="background:#BBDEFB">消費品牌</span><p>疫情後停止 SEO 回展場｜網站多圖片→建議改文字｜30 字方案</p><span class="cs s-warm">🟠 提案中</span><div class="hint">▶ 點擊看完整資訊</div></div>
+</div>
+
+<div class="cc" onclick="openModal('leon-8')">
+<div class="ch" style="background:#E0F2F1"><span>🍄 日進生技（O卡桑）</span><span class="cd">03/11</span></div>
+<div class="cb"><span class="ci" style="background:#B2DFDB">食品｜養生飲品</span><p>WordPress SEO 結構問題｜關鍵字排名 8 月起下滑｜兩個子網域需分別優化</p><span class="cs s-warm">🟠 提案中</span><div class="hint">▶ 點擊看完整資訊</div></div>
+</div>
+
+<div class="cc" onclick="openModal('leon-7')">
+<div class="ch" style="background:#F3E5F5"><span>🦷 呈洺整合行銷（診所）</span><span class="cd">03/09</span></div>
+<div class="cb"><span class="ci" style="background:#E1BEE7">醫療診所｜植牙/全口重建</span><p>SEO 42 萬/月 vs AIGO 48 萬/月｜建議初期 SEO 為主</p><span class="cs s-warm">🟠 提案中</span><div class="hint">▶ 點擊看完整資訊</div></div>
+</div>
+
+<div class="cc" onclick="openModal('leon-6')">
+<div class="ch" style="background:#FFF9C4"><span>🏷️ River Studio (AMP)</span><span class="cd">03/06</span></div>
+<div class="cb"><span class="ci" style="background:#FFF59D">電商 Shopline｜AMP</span><p>AI 標籤系統介紹｜月流量 10 萬｜年約月費 3-4 萬</p><span class="cs s-warm">🟠 提案中</span><div class="hint">▶ 點擊看完整資訊</div></div>
+</div>
+
+<div class="cc" onclick="openModal('leon-5')">
+<div class="ch" style="background:#E3F2FD"><span>🔧 華日富科技</span><span class="cd">03/04</span></div>
+<div class="cb"><span class="ci" style="background:#BBDEFB">B2B 科技｜美國市場</span><p>ODM 代工｜15 字方案月費 4.5 萬｜中英文網站分開操作</p><span class="cs s-warm">🟠 提案中</span><div class="hint">▶ 點擊看完整資訊</div></div>
+</div>
+
+<div class="cc" onclick="openModal('leon-4')">
+<div class="ch" style="background:#FCE4EC"><span>🏨 Ken Liao 飯店集團</span><span class="cd">02/25</span></div>
+<div class="cb"><span class="ci" style="background:#F8BBD0">飯店集團｜多語言</span><p>顧問三大面向 + AI 整合｜每主題約 9 萬｜集團優惠價｜多語言 SEO</p><span class="cs s-warm">🟠 提案中</span><div class="hint">▶ 點擊看完整資訊</div></div>
+</div>
+
+<div class="cc" onclick="openModal('leon-3')">
+<div class="ch" style="background:#E8F5E9"><span>🌐 名揚翻譯</span><span class="cd">02/25</span></div>
+<div class="cb"><span class="ci" style="background:#C8E6C9">翻譯服務｜既有客戶</span><p>建議書交付｜Title/Description 優化｜H 標籤結構調整</p><span class="cs s-exist">⚪ 既有服務</span><div class="hint">▶ 點擊看完整資訊</div></div>
+</div>
+
+<div class="cc" onclick="openModal('leon-2')">
+<div class="ch" style="background:#FFF3E0"><span>🏠 Hola 特力屋</span><span class="cd">02/25</span></div>
+<div class="cb"><span class="ci" style="background:#FFE0B2">家居｜既有客戶</span><p>SEO 專案檢討 + AI 整合挑戰｜Kelvin 服務態度下滑｜IT 改動極慢</p><span class="cs s-exist">⚪ 既有客戶</span><div class="hint">▶ 點擊看完整資訊</div></div>
+</div>
+
+<div class="cc" onclick="openModal('leon-1')">
+<div class="ch" style="background:#E8EAF6"><span>💉 星醫美學</span><span class="cd">02/23</span></div>
+<div class="cb"><span class="ci" style="background:#C5CAE9">醫美</span><p>啟動會議｜建站顧問 + SEO｜6 主題 30 字 14 篇｜月費 5 萬</p><span class="cs s-go">🟣 已啟動</span><div class="hint">▶ 點擊看完整資訊</div></div>
+</div>
+
+</div>
+
+<div class="sy" style="border-color:var(--leon)">
+<div class="si"><span class="stg" style="background:var(--bryan);color:#fff">Bryan</span><strong>🆕 金融保險雙案：</strong>Leon 的旺旺友聯 + Bryan 的中信產險，同為金融產險業 GEO 客戶，可共建「金融保險 GEO 提案模板」及法規審核流程。</div>
+<div class="si"><span class="stg" style="background:var(--aiden);color:#fff">Aiden</span><strong>保健品：</strong>Leon 的惠比壽日藥 + Aiden 的昇暉健康，文章潤飾/法規審核流程可互通。</div>
+<div class="si"><span class="stg" style="background:var(--bryan);color:#fff">Bryan</span><strong>Albion：</strong>Bryan 負責內部啟動+客戶啟動，建議書 4/21 交付。</div>
+<div class="si"><span class="stg" style="background:var(--k);color:#fff">全組</span><strong>醫美模板：</strong>星醫美學 + 粹究美學 + Dr.A（Aiden）→ 可建立「醫美 GEO 提案標準模板」。</div>
+<div class="si"><span class="stg" style="background:var(--rebecca);color:#fff">Rebecca</span><strong>Shopline 流程：</strong>Leon 與 Harper 討論了虛擬 ATM 上線及 Inquiry→Deal 自動化，影響全組流程。</div>
+</div>
+
+<div class="al aw"><span class="ai">⚠️</span><div><strong>Leon 觀察：</strong>17 個客戶接觸，旺旺友聯已啟動（透過媒代展將），金融業合約流程長需注意時程。5 個停在「初次接觸」，應聚焦把沛睿德、Mamaway、双美推進到報價階段。Hola 既有客戶 Kelvin 服務態度問題需與 Amber 跟進。</div></div>
+</div>
+
+<!-- ============ AIDEN ============ -->
+<div id="t-aiden" class="tp">
+<div class="pf" style="border-color:var(--aiden);background:linear-gradient(135deg,#FFF3E0,#fff)">
+  <div class="av" style="background:var(--aiden)">A</div>
+  <div class="pi">
+    <h2>蔡毓倫 Aiden Tsai</h2>
+    <div class="pr">AE ｜ 高雄 ｜ E0380 ｜ 8 個客戶接觸</div>
+    <div><span class="bg" style="border-color:var(--aiden);color:var(--aiden)">🇯🇵 日商專家 ×3</span><span class="bg" style="border-color:var(--r);color:var(--r)">🔴 昇暉 5 月啟動</span><span class="bg" style="border-color:var(--g);color:var(--g)">🛠️ B2B 外銷經驗</span></div>
+  </div>
+</div>
+<div class="st" style="border-color:var(--aiden);color:var(--aiden)">📋 所有客戶接觸紀錄（點擊展開）</div>
+<div class="cg">
+
+<div class="cc" onclick="openModal('aiden-8')">
+<div class="ch" style="background:#FCE4EC"><span>👗 巧玲瓏 Ads</span><span class="cd">03/18</span></div>
+<div class="cb"><span class="ci" style="background:#F8BBD0">日商｜熟齡女裝</span><p>Google PowerPac + Meta 四大方向｜月投 20 萬起｜<strong>3/21 尾刊 deadline！</strong></p><span class="cs s-hot">🔴 急！明天 deadline</span><div class="hint">▶ 點擊看完整資訊</div></div>
+</div>
+
+<div class="cc" onclick="openModal('aiden-7')">
+<div class="ch" style="background:#FFF3E0"><span>💆 ATEX 日商按摩器</span><span class="cd">03/17</span></div>
+<div class="cb"><span class="ci" style="background:#FFE0B2">日商｜消費電子</span><p>目前僅 GA+PMax｜重視 ROS｜免費試用（Logo 交換）｜<strong>4/4 deadline</strong></p><span class="cs s-warm">🟠 4/4 deadline</span><div class="hint">▶ 點擊看完整資訊</div></div>
+</div>
+
+<div class="cc" onclick="openModal('aiden-6')">
+<div class="ch" style="background:#E8F5E9"><span>💊 昇暉健康</span><span class="cd">03/16</span></div>
+<div class="cb"><span class="ci" style="background:#C8E6C9">保健品</span><p>五大產品線｜每產品線 4-5 字｜潤飾方案（需法規審核）｜<strong>預計 5 月啟動</strong></p><span class="cs s-hot">🔴 高機率 — 5 月</span><div class="hint">▶ 點擊看完整資訊</div></div>
+</div>
+
+<div class="cc" onclick="openModal('aiden-5')">
+<div class="ch" style="background:#E8F5E9"><span>🔧 Dr.A</span><span class="cd">03/13</span></div>
+<div class="cb"><span class="ci" style="background:#C8E6C9">3C 維修｜既有客戶</span><p>GEO 報告更新｜網站資訊量多結構老舊｜建議加結構化資料</p><span class="cs s-exist">⚪ 既有服務</span><div class="hint">▶ 點擊看完整資訊</div></div>
+</div>
+
+<div class="cc" onclick="openModal('aiden-4')">
+<div class="ch" style="background:#EFEBE9"><span>🚗 澄駒國際車業</span><span class="cd">03/11</span></div>
+<div class="cb"><span class="ci" style="background:#D7CCC8">車業</span><p>外部網站 API 串接複雜｜車輛 22 台暫不導入 AI 標籤｜AI 客服贈送</p><span class="cs s-warm">🟠 提案中</span><div class="hint">▶ 點擊看完整資訊</div></div>
+</div>
+
+<div class="cc" onclick="openModal('aiden-3')">
+<div class="ch" style="background:#E0F2F1"><span>💻 碩益科技</span><span class="cd">03/11</span></div>
+<div class="cb"><span class="ci" style="background:#B2DFDB">B2B ERP 系統</span><p>顧問式服務｜三大 KPI｜WordPress→自建站｜預計 4 月初開始</p><span class="cs s-hot">🔴 高機率</span><div class="hint">▶ 點擊看完整資訊</div></div>
+</div>
+
+<div class="cc" onclick="openModal('aiden-2')">
+<div class="ch" style="background:#E3F2FD"><span>🏭 燁鋒輕合金</span><span class="cd">03/06</span></div>
+<div class="cb"><span class="ci" style="background:#BBDEFB">B2B 外銷｜航太鋁合金</span><p>英文市場｜需英文母語寫手｜正言不鏽鋼成功案例（營收 5 倍）</p><span class="cs s-warm">🟠 提案中</span><div class="hint">▶ 點擊看完整資訊</div></div>
+</div>
+
+<div class="cc" onclick="openModal('aiden-1')">
+<div class="ch" style="background:#FFF3E0"><span>🏠 寬庭美學</span><span class="cd">02/26</span></div>
+<div class="cb"><span class="ci" style="background:#FFE0B2">家居美學</span><p>SEO + GEO 介紹｜RW 平台 3/12 推出｜約定下週親訪</p><span class="cs s-warm">🟠 提案中</span><div class="hint">▶ 點擊看完整資訊</div></div>
+</div>
+
+</div>
+
+<div class="sy" style="border-color:var(--aiden)">
+<div class="si"><span class="stg" style="background:var(--leon);color:#fff">Leon</span><strong>日商經驗：</strong>ATEX + 巧玲瓏 + Albion（Leon）都是日本品牌，合約審核/授權條款限制可互通。</div>
+<div class="si"><span class="stg" style="background:var(--bryan);color:#fff">Bryan</span><strong>保健品軍團：</strong>昇暉健康 + 蒔心田 + 利維喜 LAC → 統一建「保健品 GEO 提案模板」。</div>
+<div class="si"><span class="stg" style="background:var(--k);color:#fff">蔡阿達</span><strong>燁鋒外銷：</strong>英文市場 B2B，需英文母語寫手。蔡阿達可協助評估外包寫手資源。</div>
+</div>
+</div>
+
+<!-- ============ BRYAN ============ -->
+<div id="t-bryan" class="tp">
+<div class="pf" style="border-color:var(--bryan);background:linear-gradient(135deg,#E8F5E9,#fff)">
+  <div class="av" style="background:var(--bryan)">B</div>
+  <div class="pi">
+    <h2>周至剛 Bryan Chou</h2>
+    <div class="pr">AE ｜ 台北 ｜ E0388 ｜ 9 個客戶接觸</div>
+    <div><span class="bg" style="border-color:var(--bryan);color:var(--bryan)">💊 保健品專家</span><span class="bg" style="border-color:var(--b);color:var(--b)">📋 Albion ×2</span><span class="bg" style="border-color:var(--o);color:var(--o)">🍽️ 食品業拓展</span></div>
+  </div>
+</div>
+<div class="st" style="border-color:var(--bryan);color:var(--bryan)">📋 所有客戶接觸紀錄（點擊展開）</div>
+<div class="cg">
+
+<div class="cc" onclick="openModal('bryan-9')">
+<div class="ch" style="background:#E8F5E9"><span>🏦 中信產險</span><span class="cd">03/24</span></div>
+<div class="cb"><span class="ci" style="background:#C8E6C9">金融保險｜GEO方案</span><p>25萬字GEO方案｜B2C子網域（汽車險/住火險/旅平險）｜週五啟動會議｜季度付款</p><span class="cs s-go">🟣 已啟動</span><div class="hint">▶ 點擊看完整資訊</div></div>
+</div>
+
+<div class="cc" onclick="openModal('bryan-8')">
+<div class="ch" style="background:#FFF3E0"><span>💻 思齊科技（myif）</span><span class="cd">03/24</span></div>
+<div class="cb"><span class="ci" style="background:#FFE0B2">SaaS｜金融科技</span><p>JS渲染+title過長問題｜建議20關鍵字年度顧問方案｜Jean Lee內部討論後決定</p><span class="cs s-warm">🟠 提案中</span><div class="hint">▶ 點擊看完整資訊</div></div>
+</div>
+
+<div class="cc" onclick="openModal('bryan-7')">
+<div class="ch" style="background:#C5CAE9"><span>🎌 Albion（客戶啟動）</span><span class="cd">03/20</span></div>
+<div class="cb"><span class="ci" style="background:#9FA8DA">日本美妝</span><p>正式啟動！建議書 4/21｜文案 14 篇分批 3 篇/次｜每篇 15 工作天</p><span class="cs s-go">🟣 已啟動</span><div class="hint">▶ 點擊看完整資訊</div></div>
+</div>
+
+<div class="cc" onclick="openModal('bryan-6')">
+<div class="ch" style="background:#F3E5F5"><span>💊 利維喜 LAC</span><span class="cd">03/19</span></div>
+<div class="cb"><span class="ci" style="background:#E1BEE7">保健品</span><p>多重網址→建議 canonical｜SEO 為基礎、AI 為延伸</p><span class="cs s-warm">🟠 提案中</span><div class="hint">▶ 點擊看完整資訊</div></div>
+</div>
+
+<div class="cc" onclick="openModal('bryan-5')">
+<div class="ch" style="background:#E3F2FD"><span>🎨 匠運 uniarts</span><span class="cd">03/18</span></div>
+<div class="cb"><span class="ci" style="background:#BBDEFB">設計/文創</span><p>關鍵字僅 200 多個，多品牌字｜缺中間分類及意圖字詞</p><span class="cs s-new">🔵 初次接觸</span><div class="hint">▶ 點擊看完整資訊</div></div>
+</div>
+
+<div class="cc" onclick="openModal('bryan-4')">
+<div class="ch" style="background:#FFF3E0"><span>🍽️ 好味食飲</span><span class="cd">03/17</span></div>
+<div class="cb"><span class="ci" style="background:#FFE0B2">食品飲料</span><p>希望 SEO + AI 同步｜現有網站需重建｜Bryan 介紹合作廠商</p><span class="cs s-warm">🟠 提案中 — 預算評估</span><div class="hint">▶ 點擊看完整資訊</div></div>
+</div>
+
+<div class="cc" onclick="openModal('bryan-3')">
+<div class="ch" style="background:#E8F5E9"><span>🌿 蒔心田生醫</span><span class="cd">03/17</span></div>
+<div class="cb"><span class="ci" style="background:#C8E6C9">生醫保健</span><p>已有 SEO 廠商｜GO 可獨立購買（含 SEO 基礎）｜Bryan 爭取優惠</p><span class="cs s-warm">🟠 提案中</span><div class="hint">▶ 點擊看完整資訊</div></div>
+</div>
+
+<div class="cc" onclick="openModal('bryan-2')">
+<div class="ch" style="background:#C5CAE9"><span>🎌 Albion（內部啟動）</span><span class="cd">03/16</span></div>
+<div class="cb"><span class="ci" style="background:#9FA8DA">日本美妝</span><p>SEO + AMP｜25 關鍵字 14 篇文章｜合約一次性付款｜合約尚未回簽</p><span class="cs s-go">🟣 已啟動</span><div class="hint">▶ 點擊看完整資訊</div></div>
+</div>
+
+<div class="cc" onclick="openModal('bryan-1')">
+<div class="ch" style="background:#E8F5E9"><span>🧬 Gennue Lab (Janu)</span><span class="cd">03/11</span></div>
+<div class="cb"><span class="ci" style="background:#C8E6C9">保健品｜益生菌</span><p>品牌重啟統一名為 Janu｜Shopify 平台有利 SEO｜網站架構良好</p><span class="cs s-warm">🟠 提案中</span><div class="hint">▶ 點擊看完整資訊</div></div>
+</div>
+
+</div>
+
+<div class="sy" style="border-color:var(--bryan)">
+<div class="si"><span class="stg" style="background:var(--leon);color:#fff">Leon</span><strong>🆕 金融保險雙案：</strong>Bryan 的中信產險 + Leon 的旺旺友聯，同為產險業 GEO 客戶。法務審核流程、金融業合約模板可共享，協助建立「金融保險 GEO SOP」。</div>
+<div class="si"><span class="stg" style="background:var(--aiden);color:#fff">Aiden</span><strong>保健品模板：</strong>蒔心田 + 利維喜 + 昇暉健康，三案可共用關鍵字研究/法規審核/文章潤飾流程。</div>
+<div class="si"><span class="stg" style="background:var(--leon);color:#fff">Leon</span><strong>Albion 同步：</strong>建議書 4/21，Bryan ↔ Leon ↔ CS（Tina）三方需每週同步進度。</div>
+<div class="si"><span class="stg" style="background:var(--k);color:#fff">蔡阿達</span><strong>好味食飲：</strong>網站需重建，蔡阿達可協助評估合作廠商方案。</div>
+</div>
+</div>
+
+<!-- ============ REBECCA ============ -->
+<div id="t-rebecca" class="tp">
+<div class="pf" style="border-color:var(--rebecca);background:linear-gradient(135deg,#FCE4EC,#fff)">
+  <div class="av" style="background:var(--rebecca)">R</div>
+  <div class="pi">
+    <h2>陳玟君 Rebecca Chen</h2>
+    <div class="pr">AE ｜ 台北 ｜ E0317 ｜ 4 個客戶接觸</div>
+    <div><span class="bg" style="border-color:var(--rebecca);color:var(--rebecca)">💰 康和 120 萬大案</span><span class="bg" style="border-color:var(--o);color:var(--o)">👙 muiiswim 待啟動</span><span class="bg" style="border-color:var(--c);color:var(--c)">🏠 樂屋網 工具試用</span></div>
+  </div>
+</div>
+<div class="st" style="border-color:var(--rebecca);color:var(--rebecca)">📋 所有客戶接觸紀錄（點擊展開）</div>
+<div class="cg">
+
+<div class="cc" onclick="openModal('rebecca-4')">
+<div class="ch" style="background:#E8F5E9"><span>⚡ 熙特爾新能源</span><span class="cd">03/20</span></div>
+<div class="cb"><span class="ci" style="background:#C8E6C9">新能源產業</span><p>合作前置網站健檢｜robots.txt/後台設定確認｜SEO 技術檢查｜下週提交報告</p><span class="cs s-go">🟣 已啟動</span><div class="hint">▶ 點擊看完整資訊</div></div>
+</div>
+
+<div class="cc" onclick="openModal('rebecca-3')">
+<div class="ch" style="background:#E8F5E9"><span>🏠 樂屋網</span><span class="cd">03/17</span></div>
+<div class="cb"><span class="ci" style="background:#C8E6C9">房仲平台</span><p>自行做 SEO｜僅需工具輔助｜同意 Logo 交換→需簽法律文件</p><span class="cs s-warm">🟠 待文件簽署</span><div class="hint">▶ 點擊看完整資訊</div></div>
+</div>
+
+<div class="cc" onclick="openModal('rebecca-2')">
+<div class="ch" style="background:#FFF9C4"><span>💰 康和綜合證券</span><span class="cd">03/04</span></div>
+<div class="cb"><span class="ci" style="background:#FFF59D">金融證券</span><p><strong>總預算 120 萬！</strong>90 萬技術+內容｜30 萬媒體採購｜法務用印中</p><span class="cs s-hot">🔴 高機率 — 法務流程中</span><div class="hint">▶ 點擊看完整資訊</div></div>
+</div>
+
+<div class="cc" onclick="openModal('rebecca-1')">
+<div class="ch" style="background:#E0F7FA"><span>👙 muiiswim</span><span class="cd">02/23</span></div>
+<div class="cb"><span class="ci" style="background:#B2EBF2">泳裝品牌</span><p>原與威力合作不佳→轉 awoo｜月付 3.5 萬｜15 字+標籤+工具+機器人</p><span class="cs s-warm">🟠 待確認啟動</span><div class="hint">▶ 點擊看完整資訊</div></div>
+</div>
+
+</div>
+
+<div class="sy" style="border-color:var(--rebecca)">
+<div class="si"><span class="stg" style="background:var(--k);color:#fff">蔡阿達</span><strong>康和 120 萬推進：</strong>涉及媒體採購 30 萬 + 成效保證。蔡阿達可協助評估成效指標合理性與第三方廠商條款。</div>
+<div class="si"><span class="stg" style="background:var(--aiden);color:#fff">Aiden</span><strong>GEO 工具實戰：</strong>Aiden 已有多場工具銷售經驗，Rebecca 可請教客戶常見 Q&A 與應對。</div>
+<div class="si"><span class="stg" style="background:var(--leon);color:#fff">Leon</span><strong>樂屋網 vs 巷導：</strong>兩者都是房屋/房仲相關平台，技術架構問題與 SEO 策略可互通。</div>
+</div>
+
+<div class="al aw"><span class="ai">📢</span><div><strong>蔡阿達的話：</strong>Rebecca，目前 3 個客戶中，康和 120 萬是本季最重要的 deal，請全力推過法務關卡。muiiswim 需確認啟動狀態。整體客戶接觸量偏少，下週起請加速 pipeline 前端開發——其他三位同仁本期都有 7-16 個客戶接觸，我們一起加油。有需要支援的地方隨時喊聲！</div></div>
+</div>
+
+</div><!-- end tab-container -->
+
+<!-- ============ MODALS ============ -->
+<div class="modal-bg" id="modal-bg" onclick="if(event.target===this)closeModal()">
+<div class="modal" id="modal-box">
+  <div class="mh" id="modal-title"><span></span><div class="close" onclick="closeModal()">✕</div></div>
+  <div class="mb" id="modal-body"></div>
+</div>
+</div>
+
 <div style="
-    background-color: #1A1A2E;
-    padding: 20px;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans TC', sans-serif;
-    color: #888;
-    font-size: 14px;
-    display: flex;
-    align-items: center;
+    background-color: #ffffff; 
+    padding: 20px; 
+    font-family: 'IBM Plex Sans', 'Noto Sans TC', sans-serif; 
+    color: #444; 
+    font-size: 14px; 
+    display: flex; 
+    align-items: center; 
     justify-content: center;
-    flex-wrap: wrap;
+    flex-wrap: wrap; 
     gap: 12px;
-    border-top: 1px solid #333;
+    border-top: 1px solid #f0f0f0;
+    margin-top: 40px;
 ">
     <span style="color: #888; font-weight: 400;">Powered by</span>
     <a href="https://awoo.ai" target="_blank" style="display: flex; align-items: center; text-decoration: none;">
-        <img src="https://lh3.googleusercontent.com/pw/AP1GczMZZWr30_dY1Ke-Bi8Y5xkmHCR6LbpulIszDS4CBY-83hv8qlFlMUYq0BIpRHWnb-ECK73QEhMme3wZrk8MBJFjJ2AYBa13o6MtY0i6yliFbayXMCTZZ5f0kLXkpqh1nv0HMPKvDTGyUN8a_OQhNpkh6A=w451-h159-s-no-gm?authuser=0"
-             alt="awoo 阿物科技官網"
+        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAcMAAACfCAYAAACFvbLmAAAABHNCSVQICAgIfAhkiAAAAF96VFh0UmF3IHByb2ZpbGUgdHlwZSBBUFAxAAAImeNKT81LLcpMVigoyk/LzEnlUgADYxMuE0sTS6NEAwMDCwMIMDQwMDYEkkZAtjlUKNEABZiYm6UBoblZspkpiM8FAE+6FWgbLdiMAAAa80lEQVR4nO3dUVLjRtcG4PcIwzA2Veirkau4G2cFY25m4Gr8rSBkBXFWELKCeFYQsoJ4VhCygpgrG24wK/jM3VRBKqbqh4AxOv+F28R4bKkly1gy71OViwyy3GBLR919+jRAREREREREREREREREREREREREREREREREREREREREREREREREREREREREREREREREREREREREREREREREREREREREREREREREREREREREREREREREREREREREREREREREREREREREREREREREREREREREREREREREREREREREREREREREREREtLRk0Q3ImuaGV3n8Hx+VqQcaDrTtO9IFgPVcv73d7Xbn1jgiIoqFwXCC5vpWyXHuyz6kLEAZQAnAuwTf4lwEHV/RcKBt319t795+6SR4fiIiioDBEIPgh5WHChQVgVYAvF1AM84V0nDgH364+etwAe9PRPRivdhg2FzfKon09yCoItleXxKuFHIIR+u7/3fZWHRjiIiW3YsLhs0NryI+9gF8u+i2WDpXkdru9UV90Q0hIlpWLyYYNje8iqOoqeLjotsS05k62GdPkYgoeUsfDE8KxbJCDzIcBJ8S/XXn+q/9RTeDiGiZLHUwbOa9mgA/L7odc3D2aq1f4TINIkqTU9d1b/u5MgCgn+tkKUt+KYPhqeu6vfvc4dL0BidjQCSiVDh1XffufqUGlR9H/10ERwLZf3990V5U22wtXTA8dV33rpdrIH0ZookTwdGH68vKottBRC9bK++1Mf2ee+WIVNIeEJ1FNyBJLykQAoAqPjbzXm3R7SCil8vcg4LuuZu+av15WhPfUvUMjwteY45Do6ZqjHQA7YQdLEBZBO5zDNWqn/smS2PzRLQ8WnmvA4tCJY7Idpp7h7lFNyAprcKbpDNGzyF6qCKHs9YUPSkUyw9AWVT3MI/1jc5DDUA18fMSEYWzqtj1MChtmdpguBQ9Q7OQ/s8kzqWQzyuC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" 
+             alt="awoo 阿物科技官網" 
              style="height: 24px; width: auto; vertical-align: middle;">
     </a>
-    <span style="color: #555;">|</span>
-    <a href="https://www.triplew.tw/tsai"
-       target="_blank"
-       data-text="蔡阿達"
+    <span style="color: #ddd;">|</span>
+    <a href="https://www.triplew.tw/tsai" 
+       target="_blank" 
        style="
-            font-family: 'Noto Sans TC', sans-serif;
-            font-size: 20px;
+            font-size: 16px;
             font-weight: 700;
-            color: #c8f5ff;
+            color: #1a1a1a;
             text-decoration: none;
-            letter-spacing: 1px;
-            padding: 5px 5px 3px 5px;
-            border-bottom: 2px solid rgba(0, 255, 255, 0.4);
-            transition: color 0.3s ease, text-shadow 0.3s ease, border-color 0.3s ease;
+            letter-spacing: 0.5px;
+            padding: 2px 2px;
+            border-bottom: 2px solid #00c2ff;
             display: inline-block;
-            cursor: pointer;
-       "
-       onmouseover="
-            this.style.color = '#ffffff';
-            this.style.textShadow = '0 0 8px rgba(0, 255, 255, 0.9), 0 0 20px rgba(0, 255, 255, 0.7)';
-            this.style.borderBottomColor = 'rgba(0, 255, 255, 0.9)';
-            if (!this.glitchInterval) {
-                var originalText = this.getAttribute('data-text');
-                var chars = '█▓▒░_';
-                var el = this;
-                this.glitchInterval = setInterval(function() {
-                    var scrambled = '';
-                    for (var i = 0; i < originalText.length; i++) {
-                        if (Math.random() > 0.9) {
-                            scrambled += chars[Math.floor(Math.random() * chars.length)];
-                        } else {
-                            scrambled += originalText[i];
-                        }
-                    }
-                    el.innerText = scrambled;
-                }, 80);
-            }
-       "
-       onmouseout="
-            clearInterval(this.glitchInterval);
-            this.glitchInterval = null;
-            this.innerText = this.getAttribute('data-text');
-            this.style.color = '#c8f5ff';
-            this.style.textShadow = 'none';
-            this.style.borderBottomColor = 'rgba(0, 255, 255, 0.4)';
-       "
-    >
-        蔡阿達
-    </a>
+       ">蔡阿達</a>
     <span style="color: #888; letter-spacing: 0.5px;">
         Crafted with Precision and Innovation
     </span>
 </div>
+<div style="text-align:center;padding:10px;background:#fafafa;color:#aaa;font-size:14px;">
+  資料來源：76 份 SeaMeet 會議逐字稿 + 1 份實體會議錄音轉文字 ｜ 共計 35+ 客戶接觸 ｜ 2026/02/23 - 03/23
+</div>
 
-<script src="data.js"></script>
+</div><!-- end bb-content -->
+
 <script>
-(function(){
-  var D = window.WAR_ROOM_DATA;
-  if(!D){document.body.innerHTML='<h1 style="padding:40px;color:red">data.js 載入失敗</h1>';return}
+function sw(a){document.querySelectorAll('.tb').forEach(b=>b.classList.remove('on'));document.querySelectorAll('.tp').forEach(c=>c.classList.remove('on'));document.querySelector(`[data-a="${a}"]`).classList.add('on');document.getElementById(`t-${a}`).classList.add('on')}
 
-  var catMeta = {
-    partner: {label:'第三方合作',icon:'🤝',tagClass:'tag-partner',color:'var(--b)',bg:'#E8EAF6'},
-    internal: {label:'部門推進',icon:'★',tagClass:'tag-internal',color:'#00838F',bg:'#E0F7FA'},
-    client: {label:'客戶洽談',icon:'💼',tagClass:'tag-client',color:'var(--o)',bg:'#FFF3E0'},
-    company: {label:'公司策略',icon:'🌟',tagClass:'tag-company',color:'var(--m)',bg:'#FCE4EC'},
-    bni: {label:'BNI 富真分會',icon:'🔗',tagClass:'tag-bni',color:'#D32F2F',bg:'#FFEBEE'},
-    tools: {label:'工具研發',icon:'🛠️',tagClass:'tag-tools',color:'#6A1B9A',bg:'#F3E5F5'},
-    events: {label:'外部活動',icon:'📣',tagClass:'tag-events',color:'#00695C',bg:'#E0F2F1'}
-  };
+const D={
+'leon-18':{t:'🏦 旺旺友聯產險 ｜ 03/24 內部啟動',b:`
+<div class="meta">📅 03/24 ｜ ⏱ 22 min ｜ 👤 Leon、廖淑芬（小花）、陳冠任、Eric Hsiao</div>
+<span class="tag" style="background:#C5CAE9">金融保險</span><span class="tag" style="background:var(--b);color:#fff">已啟動</span><span class="tag" style="background:#E8EAF6">媒代展將合作</span>
+<h3 style="border-color:var(--leon)">📝 摘要</h3>
+<p>透過媒代集團「展將」合作，旺旺友聯為展將客戶。合約已簽，Leon 主要對接展將，建議書以三方會議形式進行。聚焦 GEO 布局，以 WordPress 子網站為主要操作範圍，GSC 採遠端操控。內容由旺旺內部行銷撰寫，awoo 負責規劃。保險業法規嚴格，部落客合作需符合保險公會規範。</p>
+<h3 style="border-color:var(--leon)">🔑 洽談重點</h3>
+<ul>
+<li>透過媒代展將合作，三方會議形式（awoo + 展將 + 旺旺友聯）</li>
+<li>兩個網站：自建網站（GOSCO 維護，難改）+ WordPress（主要操作範圍）</li>
+<li>GSC 因金融業限制，客戶提供遠端登入權限查看數據</li>
+<li>客戶內部兩位行銷人員撰寫文章，awoo 負責規劃與論述</li>
+<li>展將負責外部媒體及部落客篩選、新聞稿發布</li>
+<li>兩個網站可能互搶關鍵字排名，需分開追蹤主網域與子網域</li>
+<li>AI 引用數據半年更新一次，不提供 GO 檢測報告</li>
+</ul>
+<h3 style="border-color:var(--r)">✅ 待辦事項</h3>
+<table><tr><th>優先</th><th>事項</th><th>期限</th></tr>
+<tr><td class="pu">🔴</td><td>安排三方啟動會議（awoo + 展將 + 旺旺友聯）</td><td>儘快</td></tr>
+<tr><td class="pu">🔴</td><td>提供第一份建議書（文章規劃 + 開箱文模板）</td><td>四月連假前</td></tr>
+<tr><td class="ph">🟠</td><td>提供第二份建議書（技術面）</td><td>五月初前</td></tr>
+<tr><td class="ph">🟠</td><td>安排遠端登入旺旺友聯網站，管理 GSC 數據</td><td>啟動後</td></tr>
+<tr><td class="pm">🔵</td><td>建立兩個溝通群組（內部協調 + 對外技術回覆）</td><td>本週</td></tr>
+<tr><td class="pm">🔵</td><td>提供部落客開箱文模板 + YouTuber 影片設定資料</td><td>本月</td></tr>
+</table>`},
+'leon-17':{t:'🚛 聯廣 FUSO ｜ 03/23 GEO討論',b:`
+<div class="meta">📅 03/23 ｜ ⏱ 27 min ｜ 👤 Leon、Angela（聯廣）、UAjc</div>
+<span class="tag" style="background:#FFE0B2">商用車</span><span class="tag" style="background:var(--o);color:#fff">提案中</span><span class="tag" style="background:#E3F2FD">代理商合作</span>
+<h3 style="border-color:var(--leon)">📝 摘要</h3>
+<p>透過聯廣代理商洽談 FUSO 商用車品牌 GEO 優化。客戶網站為手刻 HTML 無 CMS，主機有固定 IP 限制，需先取得後台存取權限評估可優化性。報價六萬/月，給代理商八折優惠。預計 3/25 提案初稿審閱。</p>
+<h3 style="border-color:var(--leon)">🔑 洽談重點</h3>
+<ul>
+<li>客戶網站為手刻 HTML，無套版或後台，僅有簡易新聞管理系統</li>
+<li>主機需固定 IP 白名單認證，需先申請帳密進入後台評估</li>
+<li>若無法優化現有網站，備案為重新架設 WordPress（約 5 萬）</li>
+<li>網站內容嚴重不足，進站字數僅約 94 字，需大量補充內容</li>
+<li>報價對外 6 萬/月，給聯廣八折（部門最高權限）</li>
+<li>客戶要求提案需明確呈現 KPI 成長預期，白話文說明技術細節</li>
+<li>成效預估：合作後 3-4 個月才會看到數字</li>
+</ul>
+<h3 style="border-color:var(--r)">✅ 待辦事項</h3>
+<table><tr><th>優先</th><th>事項</th><th>期限</th></tr>
+<tr><td class="pu">🔴</td><td>Angela 提供固定 IP，申請後台帳密進行評估</td><td>即刻</td></tr>
+<tr><td class="pu">🔴</td><td>Leon 準備提案初稿（含 KPI 預估）</td><td>3/25 週四下午前</td></tr>
+<tr><td class="ph">🟠</td><td>Leon 與內部確認最終折扣價格</td><td>本週</td></tr>
+<tr><td class="pm">🔵</td><td>檢查提案文件中所有外部連結正確性</td><td>提案前</td></tr>
+</table>`},
+// ========== LEON ==========
+'leon-1':{t:'💉 星醫美學 ｜ 02/23 啟動會議',b:`
+<div class="meta">📅 02/23 ｜ ⏱ 54 min ｜ 👤 Leon、Carol Tong、廖淑芬、彭時晧、Leo（藍文甫）、陳冠任、Amber</div>
+<span class="tag" style="background:#C5CAE9">醫美</span><span class="tag" style="background:#9FA8DA;color:#fff">啟動中</span><span class="tag" style="background:#E8EAF6">建站顧問+SEO</span>
+<h3 style="border-color:var(--leon)">📝 摘要</h3>
+<p>新醫美學網站僅完成首頁切版，預計 3 月底測試站、4 月初正式上線。合約自 12/16 生效（律師審約延遲）。dc 負責網站架設，雙方合作順暢。</p>
+<h3 style="border-color:var(--leon)">🔑 洽談重點</h3>
+<ul>
+<li>6 主題 × 5 延伸詞 = <strong>30 個關鍵字</strong>，文章數 14 篇</li>
+<li>月費約 <strong>5 萬元</strong>，合約期 12 個月，總計 60 萬</li>
+<li>第一份建議書依測試站提供，不用公版</li>
+<li>dc 免費協助 SEO 調整，版面新增另行報價</li>
+<li>舊網站 1.4 萬頁面→僅對有流量頁做 301 轉址，其餘設 404</li>
+<li>canonical、301 等技術細節待建議書中處理</li>
+</ul>
+<h3 style="border-color:var(--r)">✅ 待辦事項</h3>
+<table><tr><th>優先</th><th>事項</th><th>期限</th></tr>
+<tr><td class="ph">🟠</td><td>4 月前完成關鍵字選擇</td><td>4 月初</td></tr>
+<tr><td class="pm">🔵</td><td>測試站完成後出第一份建議書</td><td>3 月底後</td></tr>
+<tr><td class="pm">🔵</td><td>與 dc 協調 SEO 技術調整費用</td><td>持續</td></tr>
+</table>`},
 
-  // Sort projects by lastUpdated desc
-  D.projects.sort(function(a,b){return b.lastUpdated.localeCompare(a.lastUpdated)});
+'leon-2':{t:'🏠 Hola 特力屋 ｜ 02/25 GEO 討論（既有客戶）',b:`
+<div class="meta">📅 02/25 ｜ ⏱ 46 min ｜ 👤 Leon、Ivy Feng</div>
+<span class="tag" style="background:#FFE0B2">家居</span><span class="tag" style="background:#9E9E9E;color:#fff">既有客戶</span>
+<h3 style="border-color:var(--leon)">📝 摘要</h3>
+<p>Ivy 反映 SEO 專案溝通不順、成效難量化，Kelvin 後期服務態度下降。Leon 將與 Amber 確認服務狀況。</p>
+<h3 style="border-color:var(--leon)">🔑 洽談重點</h3>
+<ul>
+<li>AI SEO 尚無成熟工具衡量效益，目前僅可追蹤是否被 AI 引用</li>
+<li>將以<strong>主題為核心</strong>選定關鍵字，再延伸 prompt</li>
+<li>內外部連結推進困難——公關團隊 KPI 限制、IT 改動耗時半年</li>
+<li>Kelvin 初期積極但後期不主動、部落格架構專案至 2 月底仍未結案</li>
+<li>行銷部門會提供 KOL 合作模板與內容校對</li>
+</ul>
+<h3 style="border-color:var(--r)">✅ 待辦事項</h3>
+<table><tr><th>優先</th><th>事項</th><th>期限</th></tr>
+<tr><td class="pu">🔴</td><td>與 Amber 確認 Kelvin 服務狀況，必要時換人</td><td>本週</td></tr>
+<tr><td class="ph">🟠</td><td>AI SEO 主題定義 + prompt 追蹤設定</td><td>下次建議書</td></tr>
+</table>`},
 
-  // Count todos
-  var todosByPriority = {today:[],week:[],waiting:[]};
-  D.projects.forEach(function(p){
-    p.todos.forEach(function(t){
-      t._project = p.name;
-      t._icon = p.icon;
-      (todosByPriority[t.priority]||todosByPriority.week).push(t);
-    });
-  });
+'leon-3':{t:'🌐 名揚翻譯 ｜ 02/25 建議書會議（既有客戶）',b:`
+<div class="meta">📅 02/25 ｜ ⏱ 16 min ｜ 👤 Leon、盧律坊 Miya、名揚翻譯 Winnie</div>
+<span class="tag" style="background:#C8E6C9">翻譯服務</span><span class="tag" style="background:#9E9E9E;color:#fff">既有服務</span>
+<h3 style="border-color:var(--leon)">📝 摘要</h3>
+<p>建議書交付，針對 Title/Description 重複問題、H 標籤優化、英文頁面同步修改進行討論。</p>
+<h3 style="border-color:var(--leon)">🔑 洽談重點</h3>
+<ul>
+<li>部分頁面 title 缺少公司名稱，建議加上「有限公司」</li>
+<li>重複 description 設定 65-80 字中文，每頁獨特</li>
+<li>醫學翻譯頁面 H1 需調整，新增口譯類型文章</li>
+<li>管理表副本分給相關人員，限制權限</li>
+</ul>
+<h3 style="border-color:var(--r)">✅ 待辦事項</h3>
+<table><tr><th>優先</th><th>事項</th><th>期限</th></tr>
+<tr><td class="pm">🔵</td><td>Winnie 負責英文內容翻譯與上稿</td><td>持續</td></tr>
+<tr><td class="pm">🔵</td><td>天氣團隊協助檢查 title/description 修改</td><td>持續</td></tr>
+</table>`},
 
-  // Header badge
-  document.getElementById('header-badge').textContent =
-    '📅 ' + D.dateLabel + ' ｜ ' + D.stats.meetings + ' 場會議 ｜ ' +
-    D.stats.projects + ' 個專案 ｜ 每日 19:00 自動更新';
+'leon-4':{t:'🏨 Ken Liao 飯店集團 ｜ 02/25',b:`
+<div class="meta">📅 02/25 ｜ ⏱ 53 min ｜ 👤 Leon、Ken Liao</div>
+<span class="tag" style="background:#F8BBD0">飯店集團</span><span class="tag" style="background:#E1BEE7">多語言 SEO</span>
+<h3 style="border-color:var(--leon)">📝 摘要</h3>
+<p>Leon 向 Ken Liao 介紹顧問服務三大面向 + AI 整合，討論多語言 SEO 與集團優惠價包裝。</p>
+<h3 style="border-color:var(--leon)">🔑 洽談重點</h3>
+<ul>
+<li>每主題約 <strong>9 萬元</strong>，Ken 建議拆分單價讓酒店較易接受</li>
+<li>3 月上線 AI 檢視工具作為顧問案附贈</li>
+<li>各酒店總經理負責決策付款，集團推薦有助提高參與度</li>
+<li>官網套版難改，訂房網站較易執行技術優化</li>
+<li>多語言 SEO 需依語言特性拆分主題</li>
+</ul>
+<h3 style="border-color:var(--r)">✅ 待辦事項</h3>
+<table><tr><th>優先</th><th>事項</th><th>期限</th></tr>
+<tr><td class="ph">🟠</td><td>Ken 提供各酒店團隊資料 + 聯絡資訊</td><td>會後</td></tr>
+<tr><td class="ph">🟠</td><td>Leon 準備各酒店品牌專屬 SEO 健檢報告</td><td>收到資料後</td></tr>
+<tr><td class="pm">🔵</td><td>安排後續會議推進合作</td><td>待定</td></tr>
+</table>`},
 
-  // Stats bar
-  var statsHTML = '';
-  var statItems = [
-    {n:D.stats.meetings, l:'今日會議'},
-    {n:D.stats.projects, l:'進行中專案'},
-    {n:D.stats.partners, l:'第三方合作'},
-    {n:D.stats.internal, l:'部門推進'},
-    {n:D.stats.clientCompany, l:'客戶/公司'},
-    {n:todosByPriority.today.length+todosByPriority.week.length+todosByPriority.waiting.length, l:'待辦事項'}
-  ];
-  statItems.forEach(function(s){
-    statsHTML += '<div class="sc"><div class="sn">'+s.n+'</div><div class="sl">'+s.l+'</div></div>';
-  });
-  document.getElementById('stats-bar').innerHTML = statsHTML;
+'leon-5':{t:'🔧 華日富科技 ｜ 03/04 SEO 討論',b:`
+<div class="meta">📅 03/04 ｜ ⏱ 32 min ｜ 👤 Leon、許小姐、RYU Chang</div>
+<span class="tag" style="background:#BBDEFB">B2B 科技</span><span class="tag" style="background:#E3F2FD">美國市場</span>
+<h3 style="border-color:var(--leon)">📝 摘要</h3>
+<p>ODM 代工公司，主要目標市場美國。中英文網站分開操作。客戶希望客製化關鍵字數量。</p>
+<h3 style="border-color:var(--leon)">🔑 洽談重點</h3>
+<ul>
+<li><strong>15 字方案月費約 4.5 萬</strong>，年約 54 萬</li>
+<li>建議書每兩個月一次</li>
+<li>無部落格區塊，客戶考慮新增</li>
+<li>海外成功案例：不鏽鋼製造商 + 鞋材包材（SEO+廣告雙管齊下）</li>
+<li>客戶偏好 ODM 一站式服務相關關鍵字</li>
+</ul>
+<h3 style="border-color:var(--r)">✅ 待辦事項</h3>
+<table><tr><th>優先</th><th>事項</th><th>期限</th></tr>
+<tr><td class="ph">🟠</td><td>客戶提供想操作的關鍵字清單</td><td>待客戶回覆</td></tr>
+<tr><td class="pm">🔵</td><td>確認啟動時間（每月 1 日或 16 日）</td><td>簽約後</td></tr>
+</table>`},
 
-  // Count by category
-  var catCount = {};
-  D.projects.forEach(function(p){catCount[p.category]=(catCount[p.category]||0)+1});
+'leon-6':{t:'🏷️ River Studio Moon (AMP) ｜ 03/06',b:`
+<div class="meta">📅 03/06 ｜ ⏱ 46 min ｜ 👤 Leon、River Studio Moon、Wai Ho Chan</div>
+<span class="tag" style="background:#FFF59D">電商 Shopline</span><span class="tag" style="background:#FFE082">AMP 標籤系統</span>
+<h3 style="border-color:var(--leon)">📝 摘要</h3>
+<p>AI 標籤系統介紹：自動萃取標籤→兩兩組合→比對搜尋量→生成分類頁面。Shopline API 串接。</p>
+<h3 style="border-color:var(--leon)">🔑 洽談重點</h3>
+<ul>
+<li>標籤頁掛載於原網站子目錄下，頁面數量可達數萬</li>
+<li>站內搜尋 + 商品推薦 + 自有 Pixel 追蹤</li>
+<li>月流量約 10 萬，<strong>報價月費約 3-4 萬</strong></li>
+<li>上線流程：串 API+Token→標籤貼標約一個月→確認品質→啟用</li>
+<li>客戶希望 PDF 格式介紹與報價文件</li>
+</ul>
+<h3 style="border-color:var(--r)">✅ 待辦事項</h3>
+<table><tr><th>優先</th><th>事項</th><th>期限</th></tr>
+<tr><td class="ph">🟠</td><td>提供 Demo 頁面 + PDF 報價文件</td><td>會後</td></tr>
+<tr><td class="pm">🔵</td><td>安排與廣告代理商會議（協助客戶優化廣告策略）</td><td>待定</td></tr>
+</table>`},
 
-  // Tabs — 動態生成，只顯示有專案的分類
-  var tabs = [{id:'all',label:'⚡ 全部專案 ('+D.projects.length+')'}];
-  Object.keys(catMeta).forEach(function(cat){
-    if(catCount[cat]){
-      tabs.push({id:cat,label:catMeta[cat].icon+' '+catMeta[cat].label+' ('+(catCount[cat]||0)+')'});
-    }
-  });
-  tabs.push({id:'todo',label:'📋 待辦總覽'});
-  var tabBarHTML = '';
-  tabs.forEach(function(t,i){
-    tabBarHTML += '<button class="tb'+(i===0?' on':'')+'" data-tab="'+t.id+'">'+t.label+'</button>';
-  });
-  document.getElementById('tab-bar').innerHTML = tabBarHTML;
+'leon-7':{t:'🦷 呈洺整合行銷（植牙診所）｜ 03/09',b:`
+<div class="meta">📅 03/09 ｜ ⏱ 41 min ｜ 👤 Leon、Chun Lin Chiu、YUHSIAO LAI、Paula、nancy lee</div>
+<span class="tag" style="background:#E1BEE7">醫療診所</span><span class="tag" style="background:#CE93D8;color:#fff">植牙/全口重建</span>
+<h3 style="border-color:var(--leon)">📝 摘要</h3>
+<p>診所產業 SEO + AIGO 提案。20 字拆兩主題（植牙+全口重建），建議初期 SEO 為主。</p>
+<h3 style="border-color:var(--leon)">🔑 洽談重點</h3>
+<ul>
+<li>SEO 方案約 <strong>42 萬/月</strong>（30 字）、AIGO 約 <strong>48 萬/月</strong>（34 字）</li>
+<li>建議排名在 30-40 名時開始操作 AIGO，流量極低先以 SEO 為主</li>
+<li>預期成效需約半年</li>
+<li>文章可由客戶撰寫後 awoo 潤稿，或 awoo 直接撰寫</li>
+<li>客戶下週內部討論後回覆</li>
+</ul>
+<h3 style="border-color:var(--r)">✅ 待辦事項</h3>
+<table><tr><th>優先</th><th>事項</th><th>期限</th></tr>
+<tr><td class="ph">🟠</td><td>提供 SEO 方案簡報文件</td><td>會後</td></tr>
+<tr><td class="pm">🔵</td><td>等待客戶內部討論結果</td><td>下週</td></tr>
+</table>`},
 
-  // === Render project card HTML ===
-  function renderCard(p){
-    var cm = catMeta[p.category]||catMeta.client;
-    var lastMeeting = p.meetingHistory[0];
-    var html = '<details class="cc">';
-    html += '<summary style="background:'+cm.bg+'">';
-    html += '<span>'+p.icon+' '+p.name+'</span>';
-    html += '<span class="right">';
-    html += '<span class="tag '+cm.tagClass+'">'+cm.label+'</span>';
-    if(lastMeeting) html += '<span class="cd">'+lastMeeting.time+'</span>';
-    html += '<span class="updated-badge">更新 '+p.lastUpdated+'</span>';
-    html += '<span class="arrow">▼</span>';
-    html += '</span></summary>';
+'leon-8':{t:'🍄 日進生技 O卡桑 ｜ 03/11',b:`
+<div class="meta">📅 03/11 ｜ ⏱ 55 min ｜ 👤 Leon、Li Yuan、O卡桑</div>
+<span class="tag" style="background:#B2DFDB">食品</span><span class="tag" style="background:#80CBC4">養生飲品</span>
+<h3 style="border-color:var(--leon)">📝 摘要</h3>
+<p>WordPress 網站 SEO 結構問題：H1 缺失/重複、footer 重複、缺結構化資料。關鍵字排名自 8 月起下滑（AI 搜尋影響）。</p>
+<h3 style="border-color:var(--leon)">🔑 洽談重點</h3>
+<ul>
+<li>建議 Yoast SEO 外掛 + SEO Meta in 1 Click 檢視工具</li>
+<li>圖片應用 HTML 表格非圖片表格，加 alt 文字</li>
+<li>兩個子網域視為不同網站需分別優化</li>
+<li>客戶詢問短期方案→Leon 表示 SEO 屬長期，可嘗試微型方案</li>
+</ul>
+<h3 style="border-color:var(--r)">✅ 待辦事項</h3>
+<table><tr><th>優先</th><th>事項</th><th>期限</th></tr>
+<tr><td class="pm">🔵</td><td>依關鍵字屬性分配至適合的網站</td><td>提案後</td></tr>
+</table>`},
 
-    html += '<div class="cb">';
-    html += '<div class="one-liner">'+p.summary+'</div>';
+'leon-9':{t:'🧠 湧現智庫 ｜ 03/23 外部啟動會議',b:`
+<div class="meta">📅 03/23（更新）｜原始 03/13 ｜ ⏱ 37 min ｜ 👤 Leon、Abbey Chen、William Lin</div>
+<span class="tag" style="background:#D7CCC8">AI 技術顧問</span><span class="tag" style="background:var(--b);color:#fff">已啟動</span>
+<h3 style="border-color:var(--leon)">📝 摘要</h3>
+<p>外部啟動會議完成！合約期間 2026/3/1~2027/4/30（14個月），含 2 個月建置期 + 12 個月 SEO。建置費一次性 10 萬，SEO 月費 2,500 元。網站將由 .tw 改為 .com，需確認合約變更。三方（awoo + 聚會 + 客戶）將安排線上會議推進。</p>
+<h3 style="border-color:var(--leon)">🔑 洽談重點</h3>
+<ul>
+<li>合約 14 個月：建置期 2 個月 + SEO 12 個月，建置費 10 萬 + 月費 2,500</li>
+<li>15 組 SEO 關鍵字，文章共 14 篇（awoo 撰寫 7 篇 + 客戶撰寫 7 篇）</li>
+<li>網站由聚會負責 WordPress 架設，3/31 前上線</li>
+<li>網址從 .tw 改為 .com，合約可能需變更</li>
+<li>需客戶授權 GA4 + GSC，聚會協助購買與設定</li>
+<li>建置建議書 4 月下旬提供，第一份 SEO 建議書 6 月下旬</li>
+</ul>
+<h3 style="border-color:var(--r)">✅ 待辦事項</h3>
+<table><tr><th>優先</th><th>事項</th><th>期限</th></tr>
+<tr><td class="pu">🔴</td><td>William Lin 確認新網站 3/31 前上線</td><td>3/31</td></tr>
+<tr><td class="ph">🟠</td><td>Abbey 確認合約是否需因網址變更做調整</td><td>本週</td></tr>
+<tr><td class="ph">🟠</td><td>Abbey 準備建置建議書</td><td>4 月下旬</td></tr>
+<tr><td class="pm">🔵</td><td>William Lin 安排三方線上會議</td><td>待定</td></tr>
+<tr><td class="pm">🔵</td><td>客戶完成 GA4 + GSC 授權</td><td>待定</td></tr>
+</table>`},
 
-    // Source tags
-    p.meetingHistory.forEach(function(m){
-      html += '<span class="source-tag">📅 '+m.date+' '+m.title+'</span>';
-    });
+'leon-10':{t:'🏭 台灣沛睿德 ｜ 03/16',b:`
+<div class="meta">📅 03/16 ｜ ⏱ 56 min ｜ 👤 Leon、Lena Lin</div>
+<span class="tag" style="background:#BBDEFB">消費品牌</span>
+<h3 style="border-color:var(--leon)">📝 摘要</h3>
+<p>品牌過去 6 年從網路→展場行銷。近兩年停止 SEO/廣告，面臨競爭加劇。網站以圖片呈現為主。</p>
+<h3 style="border-color:var(--leon)">🔑 洽談重點</h3>
+<ul>
+<li>建議改用文字 + HTML 表格，設置專屬 title/description</li>
+<li>GO 時代避免 JS 過多，經營外部媒體</li>
+<li><strong>30 字方案</strong>適合目前產品線</li>
+<li>合作模式：建議書提供 vs 代為執行（價格不同）</li>
+</ul>
+<h3 style="border-color:var(--r)">✅ 待辦事項</h3>
+<table><tr><th>優先</th><th>事項</th><th>期限</th></tr>
+<tr><td class="ph">🟠</td><td>整理簡報、報價單及合約書寄送</td><td>本週</td></tr>
+</table>`},
 
-    // Key points
-    html += '<ul class="key-points">';
-    p.keyPoints.forEach(function(kp){html += '<li>'+kp+'</li>'});
-    html += '</ul>';
+'leon-11':{t:'🧬 双美生物科技 ｜ 03/18',b:`
+<div class="meta">📅 03/18 ｜ ⏱ 49 min ｜ 👤 Leon、Ling Hsieh</div>
+<span class="tag" style="background:#E1BEE7">生物科技</span><span class="tag" style="background:#CE93D8;color:#fff">醫美原料</span>
+<h3 style="border-color:var(--leon)">📝 摘要</h3>
+<p>網站商品頁重複連結問題，無實際線上銷售。原外包已結束，內部自管。</p>
+<h3 style="border-color:var(--leon)">🔑 洽談重點</h3>
+<ul>
+<li>前兩個商品台灣市場，後兩個海外市場</li>
+<li>介紹 SEO + AI 優化：主題群集、多模態、結構化資料</li>
+<li>AI 轉換率提升 4-6 倍（國外數據）</li>
+<li>需取得後台權限評估可調範圍</li>
+</ul>
+<h3 style="border-color:var(--r)">✅ 待辦事項</h3>
+<table><tr><th>優先</th><th>事項</th><th>期限</th></tr>
+<tr><td class="ph">🟠</td><td>取得後台存取權限</td><td>下週</td></tr>
+</table>`},
 
-    // Chips
-    if(p.chips.length){
-      html += '<div class="nums">';
-      p.chips.forEach(function(c){html += '<span class="num-chip">'+c.icon+' '+c.text+'</span>'});
-      html += '</div>';
-    }
+'leon-12':{t:'🍼 Mamaway 媽媽餵 ｜ 03/18',b:`
+<div class="meta">📅 03/18 ｜ ⏱ 43 min ｜ 👤 Leon、Doris Huang（行銷部）</div>
+<span class="tag" style="background:#FFE0B2">母嬰用品</span>
+<h3 style="border-color:var(--leon)">📝 摘要</h3>
+<p>缺結構化資料、EAT 專家背書、圖片 alt。母嬰健康領域專家背書特別重要。</p>
+<h3 style="border-color:var(--leon)">🔑 洽談重點</h3>
+<ul>
+<li>建議透過後台或 GTM 掛載結構化資料</li>
+<li>首頁商品推薦可結合 JavaScript + 結構化資料</li>
+<li>增加文章更新日期 + Sitemap 網址於 robots.txt</li>
+<li>外部 KOL/KOC 篩選 + 開箱文模板</li>
+<li>SEO 預估 <strong>3-6 個月見效</strong>，年約制</li>
+</ul>
+<h3 style="border-color:var(--r)">✅ 待辦事項</h3>
+<table><tr><th>優先</th><th>事項</th><th>期限</th></tr>
+<tr><td class="ph">🟠</td><td>報價單 + 關鍵字研究啟動</td><td>下週</td></tr>
+</table>`},
 
-    // Todos
-    if(p.todos.length){
-      html += '<div class="todo-list"><h5>🎯 待辦追蹤</h5><ul>';
-      p.todos.forEach(function(t){html += '<li>'+t.text+(t.owner!=='蔡阿達'?' <em style="color:#999">('+t.owner+')</em>':'')+'</li>'});
-      html += '</ul></div>';
-    }
+'leon-13':{t:'🏠 巷導（房屋刊登平台）｜ 03/20',b:`
+<div class="meta">📅 03/20 ｜ ⏱ 23 min ｜ 👤 Leon、林詩婷</div>
+<span class="tag" style="background:#B2DFDB">SaaS 平台</span>
+<h3 style="border-color:var(--leon)">📝 摘要</h3>
+<p>房屋刊登平台，非電商。CSR 架構→建議改 SSR。缺首頁/關於我們頁面。</p>
+<h3 style="border-color:var(--leon)">🔑 洽談重點</h3>
+<ul>
+<li>robots 設定需調整（部分爬蟲被封鎖）</li>
+<li>canonical 指向文章頁，影響品牌頁曝光</li>
+<li>僅上架 1 篇內容文章，建議增加部落格區塊</li>
+<li>客戶自建網站，有技術能力做調整</li>
+</ul>
+<h3 style="border-color:var(--r)">✅ 待辦事項</h3>
+<table><tr><th>優先</th><th>事項</th><th>期限</th></tr>
+<tr><td class="pm">🔵</td><td>CSR→SSR 技術建議書整理</td><td>下週</td></tr>
+</table>`},
 
-    // Action buttons
-    html += '<div class="actions">';
-    html += '<button class="btn-detail" onclick="openModal(\'modal-'+p.id+'\')">💬 看對話細節</button>';
-    if(lastMeeting && lastMeeting.docUrl){
-      html += '<a class="btn-doc" href="'+lastMeeting.docUrl+'" target="_blank">📄 原始記錄</a>';
-    }
-    html += '</div>';
+'leon-14':{t:'💊 惠比壽日藥直送 ｜ 03/20',b:`
+<div class="meta">📅 03/20 ｜ ⏱ 43 min ｜ 👤 Leon、Bikepacking Diary</div>
+<span class="tag" style="background:#F8BBD0">電商｜日藥</span>
+<h3 style="border-color:var(--leon)">📝 摘要</h3>
+<p>AI 數據追蹤工具完整功能介紹 + SEO 顧問合作流程說明。</p>
+<h3 style="border-color:var(--leon)">🔑 洽談重點</h3>
+<ul>
+<li>工具追蹤：提及率、聲量佔比、排名、情感分析、引用率</li>
+<li>建議書每兩個月一次</li>
+<li>內容/技術/外部三面向優化</li>
+<li>關鍵字過多導致排名波動→設定最強 landing page 集中</li>
+</ul>`},
 
-    html += '</div></details>';
-    return html;
-  }
+'leon-15':{t:'💉 粹究美學診所 ｜ 03/20',b:`
+<div class="meta">📅 03/20 ｜ ⏱ 44 min ｜ 👤 Leon、羊咩（Mei Yang）、i ting chen</div>
+<span class="tag" style="background:#FFF59D">醫美診所</span>
+<h3 style="border-color:var(--leon)">📝 摘要</h3>
+<p>AI 監測工具介紹（提及率、情緒分析、引用率、prompt 追蹤）+ 顧問服務規劃。</p>
+<h3 style="border-color:var(--leon)">🔑 洽談重點</h3>
+<ul>
+<li>AI 回答優先引用可信且相關性高的網站</li>
+<li>SEO 流量可能下滑但曝光增加，<strong>轉換率提升 4-6 倍</strong></li>
+<li>顧問案每兩個月建議書 + Line 群即時回應</li>
+<li>競品可由系統自動匹配或客戶指定</li>
+</ul>`},
 
-  // === Render modal HTML ===
-  function renderModal(p){
-    var cm = catMeta[p.category]||catMeta.client;
-    var html = '<div class="modal-bg" id="modal-'+p.id+'">';
-    html += '<div class="modal">';
-    html += '<div class="mh"><span>'+p.icon+' '+p.name+' — 對話細節</span>';
-    html += '<div class="close" onclick="closeModal(\'modal-'+p.id+'\')">✕</div></div>';
-    html += '<div class="mb">';
+// ========== AIDEN ==========
+'aiden-1':{t:'🏠 寬庭美學 ｜ 02/26 SEO 提案',b:`
+<div class="meta">📅 02/26 ｜ ⏱ 67 min ｜ 👤 Aiden、寬庭 Kuan</div>
+<span class="tag" style="background:#FFE0B2">家居美學</span>
+<h3 style="border-color:var(--aiden)">📝 摘要</h3>
+<p>介紹 awoo 近 20 年 SEO 經驗，SEO vs GEO 差異，專案 KPI（排名、Citation Rate、Mention Rate）。</p>
+<h3 style="border-color:var(--aiden)">🔑 洽談重點</h3>
+<ul>
+<li>3/12 推出 RW 平台，追蹤多組關鍵字 AI 能見度</li>
+<li>技術優化：robots.txt、sitemap、Schema（FAQ+Product）</li>
+<li>約定<strong>下週見面</strong>進一步討論合作細節</li>
+<li>1:1 中 Aiden 回報客戶滿意→安排親訪促成合作</li>
+</ul>
+<h3 style="border-color:var(--r)">✅ 待辦事項</h3>
+<table><tr><th>優先</th><th>事項</th><th>期限</th></tr>
+<tr><td class="ph">🟠</td><td>親訪客戶促成合作</td><td>已安排</td></tr>
+</table>`},
 
-    p.meetingHistory.forEach(function(m,mi){
-      html += '<div class="date-divider">📅 '+m.date+' — '+m.title+' ('+m.time+', '+m.duration+')</div>';
-      html += '<div class="meta">👥 '+m.participants;
-      if(m.docUrl) html += ' ｜ <a href="'+m.docUrl+'" target="_blank">📄 原始記錄</a>';
-      html += '</div>';
+'aiden-2':{t:'🏭 燁鋒輕合金 ｜ 03/06 GEO 服務說明',b:`
+<div class="meta">📅 03/06 ｜ ⏱ 49 min ｜ 👤 Aiden、YEFONG ALUMINIUM</div>
+<span class="tag" style="background:#BBDEFB">B2B 外銷</span><span class="tag" style="background:#90CAF9">航太鋁合金</span>
+<h3 style="border-color:var(--aiden)">📝 摘要</h3>
+<p>外銷 B2B 市場（航太產業）。需英文母語寫手。客戶過去與 awoo 業務接觸不佳。</p>
+<h3 style="border-color:var(--aiden)">🔑 洽談重點</h3>
+<ul>
+<li>成功案例：正言不鏽鋼疫情初期 SEO+廣告→<strong>兩年營收 5 倍</strong></li>
+<li>SEO 屬中長期策略，廣告依出價競爭，兩者互補</li>
+<li>awoo 具備英文母語外包寫作能力</li>
+<li>AI 數據追蹤平台可串接 ChatGPT/Gemini API</li>
+<li>WordPress 網站架構彈性高但資安需另評</li>
+</ul>
+<h3 style="border-color:var(--r)">✅ 待辦事項</h3>
+<table><tr><th>優先</th><th>事項</th><th>期限</th></tr>
+<tr><td class="ph">🟠</td><td>客戶提供美國市場 Google 廣告關鍵字</td><td>待客戶</td></tr>
+<tr><td class="ph">🟠</td><td>Aiden 提供詳細報告與報價</td><td>收到關鍵字後</td></tr>
+</table>`},
 
-      m.dialogues.forEach(function(d){
-        var openAttr = (mi===0) ? ' open' : '';
-        html += '<details class="dialogue"'+openAttr+'>';
-        html += '<summary>💡 '+d.topic+'</summary>';
-        html += '<div class="dlg-content">';
-        d.exchanges.forEach(function(e){
-          var cls = e.role==='ada' ? 'dlg-ada' : 'dlg-other';
-          var label = e.role==='ada' ? '蔡阿達' : e.speaker+(e.label?' ('+e.label+')':'');
-          html += '<div class="dlg-line '+cls+'"><div class="speaker">'+label+'</div>'+e.text+'</div>';
-        });
-        html += '</div></details>';
-      });
-    });
+'aiden-3':{t:'💻 碩益科技 ｜ 03/11 GEO 提案',b:`
+<div class="meta">📅 03/11 ｜ ⏱ 45 min ｜ 👤 Aiden、洪靜誼</div>
+<span class="tag" style="background:#B2DFDB">B2B ERP</span>
+<h3 style="border-color:var(--aiden)">📝 摘要</h3>
+<p>顧問式服務。網站已從 WordPress 轉自建站，外包工程師維護。預計 4 月初開始。</p>
+<h3 style="border-color:var(--aiden)">🔑 洽談重點</h3>
+<ul>
+<li>三大 KPI：Google 排名、AI 摘要引用次數、ChatGPT/Bing AI 能見度</li>
+<li>付款可彈性調整時程</li>
+<li>B2B ERP 網站需針對性內容優化</li>
+</ul>
+<h3 style="border-color:var(--r)">✅ 待辦事項</h3>
+<table><tr><th>優先</th><th>事項</th><th>期限</th></tr>
+<tr><td class="pu">🔴</td><td>4 月初啟動準備</td><td>4 月初</td></tr>
+</table>`},
 
-    html += '</div></div></div>';
-    return html;
-  }
+'aiden-4':{t:'🚗 澄駒國際車業 ｜ 03/11 GEO 提案',b:`
+<div class="meta">📅 03/11 ｜ ⏱ 61 min ｜ 👤 Aiden、許 Hsi Hen</div>
+<span class="tag" style="background:#D7CCC8">車業</span>
+<h3 style="border-color:var(--aiden)">📝 摘要</h3>
+<p>外部設計公司架設網站，API 串接複雜。車輛約 22 台，暫不導入 AI 標籤系統（50-60 台以上才適合）。</p>
+<h3 style="border-color:var(--aiden)">🔑 洽談重點</h3>
+<ul>
+<li>AI 智能客服作為<strong>贈品附送</strong></li>
+<li>客服系統資料來源：現有網站+合作撰寫文章</li>
+<li>未來車輛數增加後可再評估標籤系統</li>
+</ul>`},
 
-  // === Build panels ===
-  var panelsHTML = '';
-  var modalsHTML = '';
+'aiden-5':{t:'🔧 Dr.A ｜ 03/13 GEO 報告更新（既有）',b:`
+<div class="meta">📅 03/13 ｜ ⏱ 44 min ｜ 👤 Aiden、Jun Sang</div>
+<span class="tag" style="background:#C8E6C9">3C 維修</span><span class="tag" style="background:#9E9E9E;color:#fff">既有客戶</span>
+<h3 style="border-color:var(--aiden)">📝 摘要</h3>
+<p>網站資訊量多、結構老舊。Robot.txt 未封鎖主流 AI 爬蟲。</p>
+<h3 style="border-color:var(--aiden)">🔑 洽談重點</h3>
+<ul>
+<li>建議加入 <strong>Organization + Local Business</strong> 結構化資料</li>
+<li>建議 Robot.txt 加入 Sitemap 路徑加速爬取</li>
+<li>討論前後端技術對 SEO 影響</li>
+<li>網站改版計畫進行中</li>
+</ul>`},
 
-  // All projects tab
-  panelsHTML += '<div id="t-all" class="tp on">';
-  panelsHTML += '<div class="st" style="border-color:var(--y);color:var(--k)">⚡ '+D.dateLabel+' — 所有進行中專案（按更新日期排序）</div>';
-  D.projects.forEach(function(p){panelsHTML += renderCard(p)});
-  panelsHTML += '</div>';
+'aiden-6':{t:'💊 昇暉健康 ｜ 03/16 SEO 提案',b:`
+<div class="meta">📅 03/16 ｜ ⏱ 46 min ｜ 👤 Aiden、昇暉健康（冠霖等）</div>
+<span class="tag" style="background:#C8E6C9">保健品</span><span class="tag" style="background:var(--r);color:#fff">高機率</span>
+<h3 style="border-color:var(--aiden)">📝 摘要</h3>
+<p>目前無 SEO、僅投廣告（已停合作）。五大產品線。客戶窗口曾在前公司與 awoo 合作過。</p>
+<h3 style="border-color:var(--aiden)">🔑 洽談重點</h3>
+<ul>
+<li>產品線：葉黃素、綜合維他命、膝關節、補鈣、葡萄糖胺</li>
+<li>建議每產品線 <strong>4-5 組關鍵字</strong>集中優化</li>
+<li>保健品競爭激烈→KPI 需保守設定</li>
+<li>文章建議用<strong>潤飾方案</strong>（需營養師+法務審核）</li>
+<li>九一 APP 限制：無法加結構化資料</li>
+<li>GO Suite 追蹤 + 六大模組建議書</li>
+<li>預計 <strong>5 月啟動</strong>，4 月中啟動排程</li>
+</ul>
+<h3 style="border-color:var(--r)">✅ 待辦事項</h3>
+<table><tr><th>優先</th><th>事項</th><th>期限</th></tr>
+<tr><td class="pu">🔴</td><td>確認關鍵字組數 + 文章潤飾/撰寫比例</td><td>4 月中</td></tr>
+<tr><td class="ph">🟠</td><td>客戶與上層討論預算</td><td>待客戶</td></tr>
+</table>`},
 
-  // Category tabs — 動態生成所有有專案的分類
-  Object.keys(catMeta).forEach(function(cat){
-    if(!catCount[cat]) return;
-    var cm = catMeta[cat];
-    var filtered = D.projects.filter(function(p){return p.category===cat});
-    panelsHTML += '<div id="t-'+cat+'" class="tp">';
-    panelsHTML += '<div class="st" style="border-color:'+cm.color+';color:'+cm.color+'">'+cm.icon+' '+cm.label+' — '+filtered.length+' 個專案</div>';
-    filtered.forEach(function(p){panelsHTML += renderCard(p)});
-    panelsHTML += '</div>';
-  });
+'aiden-7':{t:'💆 ATEX 日商按摩器 ｜ 03/17 GEO 提案',b:`
+<div class="meta">📅 03/17 ｜ ⏱ 62 min ｜ 👤 Aiden、Samuel</div>
+<span class="tag" style="background:#FFE0B2">日商</span><span class="tag" style="background:#FFB74D">消費電子</span>
+<h3 style="border-color:var(--aiden)">📝 摘要</h3>
+<p>目前僅 Google 廣告（GA+PMax 社群品牌推廣），未做 SEO。品牌在按摩器推薦有排名優勢。</p>
+<h3 style="border-color:var(--aiden)">🔑 洽談重點</h3>
+<ul>
+<li>GEO 六大模組完整介紹</li>
+<li>客戶重視 ROS，年度預算已申請完畢</li>
+<li>免費試用方案：<strong>Logo 授權交換</strong>放在 awoo 官網</li>
+<li><strong>4/4 前簽約有優惠價</strong></li>
+<li>20 組關鍵字 + 60 prompt + 文章 10 篇撰寫 or 20 篇潤飾</li>
+</ul>
+<h3 style="border-color:var(--r)">✅ 待辦事項</h3>
+<table><tr><th>優先</th><th>事項</th><th>期限</th></tr>
+<tr><td class="pu">🔴</td><td>報價方案寄送 + 試用條件確認</td><td>4/4 前</td></tr>
+<tr><td class="ph">🟠</td><td>Samuel 內部評估預算與 KPI</td><td>待客戶</td></tr>
+</table>`},
 
-  // Todo tab
-  panelsHTML += '<div id="t-todo" class="tp">';
-  panelsHTML += '<div class="st" style="border-color:var(--r);color:var(--r)">📋 待辦總覽 — 所有會議產出的 Action Items</div>';
+'aiden-8':{t:'👗 巧玲瓏 Ads 提案 ｜ 03/18',b:`
+<div class="meta">📅 03/18 ｜ ⏱ 56 min ｜ 👤 Aiden、Luke（Google）、Angela（Meta）、Ming Wu</div>
+<span class="tag" style="background:#F8BBD0">日商服飾</span><span class="tag" style="background:var(--r);color:#fff">急！</span>
+<h3 style="border-color:var(--aiden)">📝 摘要</h3>
+<p>Google PowerPac + Meta 四大方向廣告代操提案。熟齡女裝品牌。</p>
+<h3 style="border-color:var(--aiden)">🔑 洽談重點</h3>
+<ul>
+<li>Google：關鍵字廣告 + 需求開發 + PMax（AI Max 功能）</li>
+<li>Meta：影音、DPA、UGC 單圖、ASC 四大方向</li>
+<li>月投 <strong>20 萬起</strong>享服務費折扣，80 萬可再調</li>
+<li>預算配比：關鍵字 20-25%、PMax 最多、需求開發最低</li>
+<li>九一 APP 名單撈取需協調（無法直接串 Meta）</li>
+<li>預計 4 月開始，<strong>3/21 前確認尾刊</strong></li>
+<li>另推 SEO/GEO 服務（客戶目前無 SEO）</li>
+</ul>
+<h3 style="border-color:var(--r)">✅ 待辦事項</h3>
+<table><tr><th>優先</th><th>事項</th><th>期限</th></tr>
+<tr><td class="pu">🔴</td><td>Ming Wu 確認尾刊 + 資料整理</td><td>3/21！</td></tr>
+<tr><td class="pu">🔴</td><td>帳戶開設 + 授權處理（需兩週前置）</td><td>ASAP</td></tr>
+<tr><td class="ph">🟠</td><td>SEO/GEO 簡報另外寄送</td><td>Ads 確認後</td></tr>
+</table>`},
 
-  if(todosByPriority.today.length){
-    panelsHTML += '<div class="todo-card" style="border-color:var(--r)"><h4>🔴 今日 / 明日必須處理</h4><ul class="todo-items">';
-    todosByPriority.today.forEach(function(t){
-      panelsHTML += '<li><span class="todo-owner">'+t.owner+'</span> '+t.text+'</li>';
-    });
-    panelsHTML += '</ul></div>';
-  }
-  if(todosByPriority.week.length){
-    panelsHTML += '<div class="todo-card" style="border-color:var(--o)"><h4>🟠 本週待處理</h4><ul class="todo-items">';
-    todosByPriority.week.forEach(function(t){
-      panelsHTML += '<li><span class="todo-owner">'+t.owner+'</span> '+t.text+'</li>';
-    });
-    panelsHTML += '</ul></div>';
-  }
-  if(todosByPriority.waiting.length){
-    panelsHTML += '<div class="todo-card" style="border-color:var(--b)"><h4>🔵 等待他人</h4><ul class="todo-items">';
-    todosByPriority.waiting.forEach(function(t){
-      panelsHTML += '<li><span class="todo-owner">'+t.owner+'</span> '+t.text+'</li>';
-    });
-    panelsHTML += '</ul></div>';
-  }
-  panelsHTML += '</div>';
+// ========== BRYAN ==========
+'bryan-9':{t:'🏦 中信產險 ｜ 03/24 內部啟動',b:`
+<div class="meta">📅 03/24 ｜ ⏱ 31 min ｜ 👤 Bryan Chou、Alice Cho、郭喬丰、Ken Chung</div>
+<span class="tag" style="background:#C8E6C9">金融保險</span><span class="tag" style="background:var(--b);color:#fff">已啟動</span><span class="tag" style="background:#E8F5E9">GEO方案</span>
+<h3 style="border-color:var(--bryan)">📝 摘要</h3>
+<p>Bryan 向團隊說明中信產險 GEO 方案。25 萬字，操作 B2C 子網域（汽機車險、住火險、旅平險）。季度付款共四期，末期為驗收尾款。合約用我方公版，不提違約金、初期不授權。週五（3/27）舉行外部啟動會議，Bryan 主導，確認關鍵字與 IT 系統修改評估。</p>
+<h3 style="border-color:var(--bryan)">🔑 洽談重點</h3>
+<ul>
+<li>方案：GEO 25 萬字，B2C 子網域（汽機車險/住火險/旅平險），主網域暫不納入</li>
+<li>旅平險頁面 4/1 改版，其他頁面已完成改版</li>
+<li>季度付款 4 期，末期為季末開立（驗收尾款）</li>
+<li>合約不提違約金（改為「無另行約定不得解約」），初期不授權</li>
+<li>主窗口偏好電話溝通，文章需行銷 + 法務雙重審核，流程較長</li>
+<li>客戶目標是提升 AI+SEO 帶來的網路投保收入</li>
+<li>Alice 後續負責提案 GOSuite 平台</li>
+</ul>
+<h3 style="border-color:var(--r)">✅ 待辦事項</h3>
+<table><tr><th>優先</th><th>事項</th><th>期限</th></tr>
+<tr><td class="pu">🔴</td><td>Bryan 主導週五外部啟動會議</td><td>3/27</td></tr>
+<tr><td class="pu">🔴</td><td>確認關鍵字與主題定案</td><td>3/27 後</td></tr>
+<tr><td class="ph">🟠</td><td>逐項確認 IT 系統修改評估表</td><td>3/27 會議</td></tr>
+<tr><td class="ph">🟠</td><td>確認 B2C 文章發布位置及審核流程</td><td>3/27 會議</td></tr>
+<tr><td class="pm">🔵</td><td>Alice 後續提案 GOSuite 平台</td><td>啟動後</td></tr>
+</table>`},
 
-  document.getElementById('tab-panels').innerHTML = panelsHTML;
+'bryan-8':{t:'💻 思齊科技（myif）｜ 03/24 SEO/GEO 提案',b:`
+<div class="meta">📅 03/24 ｜ ⏱ 61 min ｜ 👤 Bryan Chou、Jean Lee</div>
+<span class="tag" style="background:#FFE0B2">SaaS</span><span class="tag" style="background:#FFF9C4">金融科技</span><span class="tag" style="background:var(--o);color:#fff">提案中</span>
+<h3 style="border-color:var(--bryan)">📝 摘要</h3>
+<p>Bryan 向 Jean Lee（思齊科技）完整介紹 awoo SEO+GEO 服務。分析網站現況：JS 動畫渲染影響爬蟲、首頁 title/description 過長且重複、FAQ 結構化資料缺乏。建議 20 關鍵字年度顧問方案，每兩月一份建議書，共六份。Jean Lee 預算未定，需先內部討論後決定是否啟動合作。</p>
+<h3 style="border-color:var(--bryan)">🔑 洽談重點</h3>
+<ul>
+<li>網站使用大量 JS 動畫渲染，可能影響部分爬蟲抓取</li>
+<li>首頁 title/description 過長且重複，搜尋引擎難以判斷頁面重點</li>
+<li>FAQ 結構化資料缺乏，且位置偏末端，影響 AI 抓取</li>
+<li>建議：20 關鍵字 + 年度顧問方案（每兩月一份建議書，共六份）</li>
+<li>需先確認網站製作公司是否能配合 SEO/GEO 技術修改</li>
+<li>Jean Lee 預算未定，先了解服務內容，需 2-3 週關鍵字研究</li>
+</ul>
+<h3 style="border-color:var(--r)">✅ 待辦事項</h3>
+<table><tr><th>優先</th><th>事項</th><th>期限</th></tr>
+<tr><td class="pu">🔴</td><td>Bryan 提供關鍵字與主題研究報告</td><td>2-3 週後</td></tr>
+<tr><td class="pu">🔴</td><td>Bryan 提供技術評估表</td><td>本週</td></tr>
+<tr><td class="ph">🟠</td><td>Jean Lee 確認網站廠商技術合作意願</td><td>待對方</td></tr>
+<tr><td class="pm">🔵</td><td>Jean Lee 內部討論後決定是否啟動合作</td><td>待對方</td></tr>
+</table>`},
 
-  // Modals
-  D.projects.forEach(function(p){modalsHTML += renderModal(p)});
-  document.getElementById('modals-container').innerHTML = modalsHTML;
+'bryan-1':{t:'🧬 Gennue Lab (Janu 益生菌) ｜ 03/11',b:`
+<div class="meta">📅 03/11 ｜ ⏱ 72 min ｜ 👤 Bryan、Jessica Chen、Yu-Jen Chang</div>
+<span class="tag" style="background:#C8E6C9">保健品</span><span class="tag" style="background:#A5D6A7">益生菌</span>
+<h3 style="border-color:var(--bryan)">📝 摘要</h3>
+<p>品牌因疫情暫停，去年底重啟並統一名為 Janu。主力益生菌，Shopify 平台有利 SEO。</p>
+<h3 style="border-color:var(--bryan)">🔑 洽談重點</h3>
+<ul>
+<li>網站架構良好，PageFly 搭配滿足台灣市場</li>
+<li>未來還有運動、睡眠、提神相關產品延伸</li>
+<li>已有 SEO 基礎，前端已放入 SEO 內容</li>
+</ul>`},
 
-  // Footer
-  document.getElementById('footer-info').innerHTML =
-    '最後更新：'+D.lastUpdated+' ｜ 資料來源：Google Drive SeaMeet ｜ 每日 19:00 自動更新';
+'bryan-2':{t:'🎌 Albion 內部啟動 ｜ 03/16',b:`
+<div class="meta">📅 03/16 ｜ ⏱ 28 min ｜ 👤 Bryan、Tina Lin、Rica、林琬婷、莊馥慈、蔡佳勳</div>
+<span class="tag" style="background:#9FA8DA;color:#fff">日本美妝</span><span class="tag" style="background:var(--b);color:#fff">內部啟動</span>
+<h3 style="border-color:var(--bryan)">📝 摘要</h3>
+<p>SEO + AMP 合作案。25 關鍵字、14 篇文章全由團隊撰寫。合約一次性付款。</p>
+<h3 style="border-color:var(--bryan)">🔑 洽談重點</h3>
+<ul>
+<li>授權條款因日本法規取消</li>
+<li>明星商品：健康化妝水、五D蜜粉、滲透乳、AI奇蹟修復露</li>
+<li>拓展<strong>男性保養市場</strong></li>
+<li>合約尚未回簽——<strong>Bryan 需追蹤</strong></li>
+<li>首次啟動會議擬定本週三/四</li>
+</ul>
+<h3 style="border-color:var(--r)">✅ 待辦事項</h3>
+<table><tr><th>優先</th><th>事項</th><th>期限</th></tr>
+<tr><td class="pu">🔴</td><td>追蹤合約回簽</td><td>本週</td></tr>
+<tr><td class="ph">🟠</td><td>成立專案群組</td><td>本週</td></tr>
+</table>`},
 
-  // === Tab switching ===
-  document.querySelectorAll('.tb').forEach(function(btn){
-    btn.addEventListener('click',function(){
-      var tab = this.getAttribute('data-tab');
-      document.querySelectorAll('.tb').forEach(function(b){b.classList.remove('on')});
-      document.querySelectorAll('.tp').forEach(function(p){p.classList.remove('on')});
-      this.classList.add('on');
-      document.getElementById('t-'+tab).classList.add('on');
-    });
-  });
+'bryan-3':{t:'🌿 蒔心田生醫 ｜ 03/17 GEO 提案',b:`
+<div class="meta">📅 03/17 ｜ ⏱ 90 min ｜ 👤 Bryan、Yuan Li Chang、蒔心田</div>
+<span class="tag" style="background:#C8E6C9">生醫保健</span>
+<h3 style="border-color:var(--bryan)">📝 摘要</h3>
+<p>已有 SEO 廠商，詢問 GO 是否可獨立購買→可，GO 已含 SEO 基礎。</p>
+<h3 style="border-color:var(--bryan)">🔑 洽談重點</h3>
+<ul>
+<li>AI 搜尋主要帶來<strong>品牌曝光非直接流量</strong></li>
+<li>自家追蹤工具：AI 引用數、品牌提及、競品比較、情感分析</li>
+<li>文章避免重複內容（分散排名權重）</li>
+<li>客戶可自撰部分文章，awoo 審核+優化架構</li>
+<li>代操另計，Bryan 承諾爭取優惠</li>
+</ul>
+<h3 style="border-color:var(--r)">✅ 待辦事項</h3>
+<table><tr><th>優先</th><th>事項</th><th>期限</th></tr>
+<tr><td class="pu">🔴</td><td>GO 方案報價 + 優惠確認回覆</td><td>本週</td></tr>
+</table>`},
 
-  // === Modal ===
-  window.openModal = function(id){
-    if(event) event.stopPropagation();
-    document.getElementById(id).classList.add('show');
-    document.body.style.overflow='hidden';
-  };
-  window.closeModal = function(id){
-    document.getElementById(id).classList.remove('show');
-    document.body.style.overflow='';
-  };
-  document.querySelectorAll('.modal-bg').forEach(function(m){
-    m.addEventListener('click',function(e){
-      if(e.target===m){m.classList.remove('show');document.body.style.overflow=''}
-    });
-  });
-  document.addEventListener('keydown',function(e){
-    if(e.key==='Escape'){
-      document.querySelectorAll('.modal-bg.show').forEach(function(m){m.classList.remove('show')});
-      document.body.style.overflow='';
-    }
-  });
-})();
+'bryan-4':{t:'🍽️ 好味食飲 ｜ 03/17 SEO/GEO 提案',b:`
+<div class="meta">📅 03/17 ｜ ⏱ 72 min ｜ 👤 Bryan、Hsinlan Hsu、Kenny Hung、Stuart Hung</div>
+<span class="tag" style="background:#FFE0B2">食品飲料</span>
+<h3 style="border-color:var(--bryan)">📝 摘要</h3>
+<p>客戶希望 SEO + AI 同步。現有網站架構限制需重新設計。</p>
+<h3 style="border-color:var(--bryan)">🔑 洽談重點</h3>
+<ul>
+<li>兩者高度連結建議同步進行</li>
+<li>Bryan 介紹<strong>合作廠商可提供網站建置</strong></li>
+<li>報告產出節奏：合作後定期建議書</li>
+<li>客戶需評估預算與內部溝通</li>
+</ul>
+<h3 style="border-color:var(--r)">✅ 待辦事項</h3>
+<table><tr><th>優先</th><th>事項</th><th>期限</th></tr>
+<tr><td class="ph">🟠</td><td>預算確認 + 網站建置廠商引介</td><td>下週</td></tr>
+<tr><td class="pm">🔵</td><td>案例與排程寄送</td><td>待確認</td></tr>
+</table>`},
+
+'bryan-5':{t:'🎨 匠運 uniarts ｜ 03/18 GEO 提案',b:`
+<div class="meta">📅 03/18 ｜ ⏱ 68 min ｜ 👤 Bryan、Joy H</div>
+<span class="tag" style="background:#BBDEFB">設計/文創</span>
+<h3 style="border-color:var(--bryan)">📝 摘要</h3>
+<p>SEO 與 GEO 整合策略說明。網站關鍵字收錄量偏低（約 200），多品牌字。</p>
+<h3 style="border-color:var(--bryan)">🔑 洽談重點</h3>
+<ul>
+<li>缺乏中間分類及潛在意圖字詞→流量來源侷限於已知品牌</li>
+<li>建議<strong>擴充內容頁面</strong>涵蓋更多搜尋意圖</li>
+<li>標籤自動化 + 人工審核結合</li>
+<li>主題定義及 KPI 預估討論中</li>
+</ul>`},
+
+'bryan-6':{t:'💊 利維喜 LAC ｜ 03/19 GEO 提案',b:`
+<div class="meta">📅 03/19 ｜ ⏱ 76 min ｜ 👤 Bryan、Yvonne</div>
+<span class="tag" style="background:#E1BEE7">保健品</span>
+<h3 style="border-color:var(--bryan)">📝 摘要</h3>
+<p>AI 搜尋無傳統排名概念，曝光/引用為主要指標。網站有多重網址指向同一內容問題。</p>
+<h3 style="border-color:var(--bryan)">🔑 洽談重點</h3>
+<ul>
+<li>建議 <strong>canonical 語法</strong>集中權重</li>
+<li>SEO 為基礎，AI 搜尋為延伸補強</li>
+<li>awoo 技術工程團隊比例高（6-7 成）為差異化優勢</li>
+<li>點擊率較低但曝光增加→需調整 KPI 認知</li>
+</ul>
+<h3 style="border-color:var(--r)">✅ 待辦事項</h3>
+<table><tr><th>優先</th><th>事項</th><th>期限</th></tr>
+<tr><td class="ph">🟠</td><td>canonical 技術建議書整理</td><td>下週</td></tr>
+</table>`},
+
+'bryan-7':{t:'🎌 Albion 客戶啟動 ｜ 03/20',b:`
+<div class="meta">📅 03/20 ｜ ⏱ 30 min ｜ 👤 Bryan、Tina Lin、Hina Lai、Mavis Tsai</div>
+<span class="tag" style="background:#9FA8DA;color:#fff">日本美妝</span><span class="tag" style="background:var(--b);color:#fff">已啟動</span>
+<h3 style="border-color:var(--bryan)">📝 摘要</h3>
+<p>正式客戶啟動會議。Tina Lin 說明合作流程與時程。</p>
+<h3 style="border-color:var(--bryan)">🔑 洽談重點</h3>
+<ul>
+<li>25 目標關鍵字，建議書 <strong>4/21</strong> 首份</li>
+<li>文案 14 篇分批（每次 3 篇，15 工作天/篇）</li>
+<li>客戶需提供資料協助，法規審核後上架</li>
+<li>後續每兩個月一份建議書，共六份</li>
+</ul>
+<h3 style="border-color:var(--r)">✅ 待辦事項</h3>
+<table><tr><th>優先</th><th>事項</th><th>期限</th></tr>
+<tr><td class="pu">🔴</td><td>建議書 4/21 交付（與 Leon/Tina 同步）</td><td>4/21</td></tr>
+</table>`},
+
+// ========== REBECCA ==========
+'rebecca-4':{t:'⚡ 熙特爾新能源 ｜ 03/20 網站健檢',b:`
+<div class="meta">📅 03/20 ｜ ⏱ 29 min ｜ 👤 Rebecca Chen、Fenix Li、洪偉軒（客戶）</div>
+<span class="tag" style="background:#C8E6C9">新能源</span><span class="tag" style="background:var(--b);color:#fff">已啟動</span>
+<h3 style="border-color:var(--rebecca)">📝 摘要</h3>
+<p>Rebecca 與 Fenix 進行熙特爾新能源網站合作前置健檢。檢查後台設定、robots.txt、圖片處理、Google 相關設定，確認目前三項主要任務進行中，並討論後台資料複製貼上流程與結構化資料設定。預計下週提交網站健檢報告。</p>
+<h3 style="border-color:var(--rebecca)">🔑 洽談重點</h3>
+<ul>
+<li>合作前置網站健檢：robots.txt 配置、後台參數設定確認</li>
+<li>圖片處理與後台流程優化，確認技術可行性</li>
+<li>目前三項主要任務進行中，部分需進一步研究調整</li>
+<li>Google 設定與結構化資料檢視</li>
+<li>雙方確認後續時程，預計下週提交完整報告</li>
+</ul>
+<h3 style="border-color:var(--r)">✅ 待辦事項</h3>
+<table><tr><th>優先</th><th>事項</th><th>期限</th></tr>
+<tr><td class="pu">🔴</td><td>完成網站健檢報告並提交客戶</td><td>下週</td></tr>
+<tr><td class="ph">🟠</td><td>確認後台設定與 robots.txt 調整方向</td><td>報告前</td></tr>
+<tr><td class="pm">🔵</td><td>追蹤三項進行中任務完成狀態</td><td>持續</td></tr>
+</table>`},
+
+'rebecca-1':{t:'👙 muiiswim ｜ 02/23 交接會議',b:`
+<div class="meta">📅 02/23 ｜ ⏱ 24 min ｜ 👤 蔡阿達、Rebecca</div>
+<span class="tag" style="background:#B2EBF2">泳裝品牌</span>
+<h3 style="border-color:var(--rebecca)">📝 摘要</h3>
+<p>原與威力合作不佳→客戶考慮解約轉 awoo。台灣設計師辣味泳裝品牌。</p>
+<h3 style="border-color:var(--rebecca)">🔑 洽談重點</h3>
+<ul>
+<li>解約金僅一個月，預計 <strong>3/16 開始合作</strong></li>
+<li>報價：<strong>月付 3.5 萬</strong>（15 字+標籤+工具+機器人贈送）</li>
+<li>線上線下營收各約 50%，主營收來自 IG 回購</li>
+<li>自然搜尋流量僅十幾，需加強有機搜尋帶新訪客</li>
+<li>Shopline 系統月繳需信用卡綁定</li>
+<li>另討論<strong>船警客戶</strong>產品圖片文字轉碼 AI 自動化（約八千張）</li>
+</ul>
+<h3 style="border-color:var(--r)">✅ 待辦事項</h3>
+<table><tr><th>優先</th><th>事項</th><th>期限</th></tr>
+<tr><td class="pu">🔴</td><td>確認 muiiswim 是否已正式簽約啟動</td><td>本週</td></tr>
+<tr><td class="ph">🟠</td><td>船警客戶圖片樣本取得 + AI 方案研究</td><td>持續</td></tr>
+</table>`},
+
+'rebecca-2':{t:'💰 康和綜合證券 ｜ 03/04 合作前對焦',b:`
+<div class="meta">📅 03/04 ｜ ⏱ 28 min ｜ 👤 Rebecca、ruby、蔡阿達</div>
+<span class="tag" style="background:#FFF59D">金融證券</span><span class="tag" style="background:var(--r);color:#fff">120 萬大案！</span>
+<h3 style="border-color:var(--rebecca)">📝 摘要</h3>
+<p>SEO 專案總預算 120 萬。90 萬技術+內容、30 萬媒體採購（袋鼠金融等權威網站合作導流）。</p>
+<h3 style="border-color:var(--rebecca)">🔑 洽談重點</h3>
+<ul>
+<li>分三期付款：第一期 60 萬（含 30 萬媒體）、二三期各 30 萬</li>
+<li>成效保證機制：年度最後一季 vs 前季對比</li>
+<li>客戶以 2025 全年數據為對標，合作一年</li>
+<li>ruby 公司規定需以公司電腦作業（無法用 Google 服務）</li>
+<li>法務用印流程預計 <strong>12 天</strong></li>
+<li>蔡阿達負責代收代付 + 可能簽合作備忘錄</li>
+</ul>
+<h3 style="border-color:var(--r)">✅ 待辦事項</h3>
+<table><tr><th>優先</th><th>事項</th><th>期限</th></tr>
+<tr><td class="pu">🔴</td><td>法務用印進度追蹤 → 力拼 3 月簽約</td><td>3 月底</td></tr>
+<tr><td class="ph">🟠</td><td>報價單文件轉附件 Email 寄送（非 Google）</td><td>已處理</td></tr>
+<tr><td class="ph">🟠</td><td>成效指標最終數字與 ruby 內部議價確認</td><td>持續</td></tr>
+</table>`},
+
+'rebecca-3':{t:'🏠 樂屋網 ｜ 03/17 工具試用洽談',b:`
+<div class="meta">📅 03/17 周蕙會議中提及 ｜ 👤 Rebecca</div>
+<span class="tag" style="background:#C8E6C9">房仲平台</span>
+<h3 style="border-color:var(--rebecca)">📝 摘要</h3>
+<p>台灣知名房仲平台。客戶自行做 SEO，僅需工具輔助。同意 Logo 交換→需簽法律文件。</p>
+<h3 style="border-color:var(--rebecca)">🔑 洽談重點</h3>
+<ul>
+<li>GO Suite 工具試用候選客戶</li>
+<li>Logo 交換需正式法律文件簽署</li>
+<li>蔡阿達承諾協助取得相關文件</li>
+<li>客戶品牌知名度高→Logo 掛上有宣傳價值</li>
+</ul>
+<h3 style="border-color:var(--r)">✅ 待辦事項</h3>
+<table><tr><th>優先</th><th>事項</th><th>期限</th></tr>
+<tr><td class="ph">🟠</td><td>Logo 授權文件取得（蔡阿達協助）</td><td>下週</td></tr>
+<tr><td class="pm">🔵</td><td>工具帳號開通設定</td><td>簽署後</td></tr>
+</table>`}
+};
+
+function openModal(id){
+  const d=D[id];if(!d)return;
+  document.getElementById('modal-title').querySelector('span').innerHTML=d.t;
+  document.getElementById('modal-body').innerHTML=d.b;
+  document.getElementById('modal-bg').classList.add('show');
+  document.body.style.overflow='hidden';
+}
+function closeModal(){
+  document.getElementById('modal-bg').classList.remove('show');
+  document.body.style.overflow='';
+}
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal()});
 </script>
 </body>
 </html>
