@@ -48,7 +48,7 @@ jobs:
         env:
           TZ: Asia/Taipei
         run: |
-          TARGET_DATE="${{ github.event.inputs.target_date }}"
+          TARGET_DATE=$(echo "${{ github.event.inputs.target_date }}" | xargs)
           if [ -z "$TARGET_DATE" ]; then
             TARGET_DATE=$(TZ='Asia/Taipei' date '+%Y-%m-%d')
           fi

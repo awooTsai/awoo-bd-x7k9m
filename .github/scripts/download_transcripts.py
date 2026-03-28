@@ -49,7 +49,7 @@ def list_all_files(service, folder_id, depth=0):
 def matches_date(file_info, target_date_str):
     """檢查檔案是否符合目標日期（寬鬆比對）"""
     # target_date_str: "2026-03-27"
-    td = datetime.strptime(target_date_str, "%Y-%m-%d")
+    td = datetime.strptime(target_date_str.strip(), "%Y-%m-%d")
     mm = f"{td.month:02d}"
     dd = f"{td.day:02d}"
     yyyy = str(td.year)
