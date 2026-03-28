@@ -75,8 +75,11 @@ jobs:
           claude -p \
             --allowedTools "Bash,Read,Write,Edit,Glob,Grep" \
             --model claude-sonnet-4-6 \
-            --max-budget-usd 5 \
+            --max-budget-usd 15 \
+            --permission-mode bypassPermissions \
             "目標日期：${TARGET_DATE}。transcripts/ 資料夾中有 ${TRANSCRIPT_COUNT} 份逐字稿已下載完成，請直接用 Read 工具讀取。$(cat .github/prompts/daily-update.md)"
+          echo "--- Checking file changes ---"
+          git diff --stat
 
       - name: Commit and push if changed
         run: |
