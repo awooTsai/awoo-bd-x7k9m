@@ -4,7 +4,12 @@ on:
   schedule:
     # 台灣時間每個工作日 19:00 = UTC 11:00
     - cron: "0 11 * * 1-5"
-  workflow_dispatch: # 手動觸發
+  workflow_dispatch:
+    inputs:
+      target_date:
+        description: "指定更新日期（如 2026-03-27），留空則抓今天"
+        required: false
+        default: ""
 
 permissions:
   contents: write
@@ -45,11 +50,15 @@ jobs:
           GOOGLE_APPLICATION_CREDENTIALS: /tmp/gsa.json
           TZ: Asia/Taipei
         run: |
+          TARGET_DATE="${{ github.event.inputs.target_date }}"
+          if [ -z "$TARGET_DATE" ]; then
+            TARGET_DATE=$(TZ='Asia/Taipei' date '+%Y-%m-%d')
+          fi
           claude -p \
             --allowedTools "Bash,Read,Write,Edit,Glob,Grep" \
             --model claude-sonnet-4-6 \
             --max-budget-usd 5 \
-            "$(cat .github/prompts/daily-update.md)"
+            "目標日期：${TARGET_DATE}。請用這個日期取代「今日」來篩選逐字稿。$(cat .github/prompts/daily-update.md)"
 
       - name: Commit and push if changed
         run: |
