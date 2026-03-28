@@ -44,21 +44,39 @@ jobs:
           echo "$GOOGLE_SERVICE_ACCOUNT_JSON" > /tmp/gsa.json
           echo "GOOGLE_APPLICATION_CREDENTIALS=/tmp/gsa.json" >> $GITHUB_ENV
 
-      - name: Run Claude Code to update war room
+      - name: Download transcripts from Google Drive
         env:
-          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
-          GOOGLE_APPLICATION_CREDENTIALS: /tmp/gsa.json
           TZ: Asia/Taipei
         run: |
           TARGET_DATE="${{ github.event.inputs.target_date }}"
           if [ -z "$TARGET_DATE" ]; then
             TARGET_DATE=$(TZ='Asia/Taipei' date '+%Y-%m-%d')
           fi
+          echo "TARGET_DATE=${TARGET_DATE}" >> $GITHUB_ENV
+          mkdir -p transcripts
+          python3 .github/scripts/download_transcripts.py \
+            --folder-id "1Zud6lHXA8Iuqpc0LoVH3mOniMWj4fDJa" \
+            --target-date "$TARGET_DATE" \
+            --output-dir transcripts
+          echo "--- Downloaded transcripts ---"
+          ls -la transcripts/ || echo "No transcripts found"
+
+      - name: Run Claude Code to update war room
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          TZ: Asia/Taipei
+        run: |
+          TRANSCRIPT_COUNT=$(ls transcripts/*.txt 2>/dev/null | wc -l)
+          if [ "$TRANSCRIPT_COUNT" -eq "0" ]; then
+            echo "✅ No transcripts for ${TARGET_DATE}, skipping"
+            exit 0
+          fi
+          echo "Found $TRANSCRIPT_COUNT transcripts for ${TARGET_DATE}"
           claude -p \
             --allowedTools "Bash,Read,Write,Edit,Glob,Grep" \
             --model claude-sonnet-4-6 \
             --max-budget-usd 5 \
-            "目標日期：${TARGET_DATE}。請用這個日期取代「今日」來篩選逐字稿。$(cat .github/prompts/daily-update.md)"
+            "目標日期：${TARGET_DATE}。transcripts/ 資料夾中有 ${TRANSCRIPT_COUNT} 份逐字稿已下載完成，請直接用 Read 工具讀取。$(cat .github/prompts/daily-update.md)"
 
       - name: Commit and push if changed
         run: |
