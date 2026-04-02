@@ -1,0 +1,99 @@
+name: "📊 每日團隊戰情更新"
+
+on:
+  schedule:
+    # 台灣時間每個工作日 19:00 = UTC 11:00
+    - cron: "0 11 * * 1-5"
+  workflow_dispatch:
+    inputs:
+      target_date:
+        description: "指定更新日期（如 2026-03-27），留空則抓今天"
+        required: false
+        default: ""
+
+permissions:
+  contents: write
+
+jobs:
+  update-war-room:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Setup Python (for Google Drive access)
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: |
+          npm install -g @anthropic-ai/claude-code
+          pip install google-api-python-client google-auth-oauthlib gdown
+
+      - name: Setup Google credentials
+        env:
+          GOOGLE_SERVICE_ACCOUNT_JSON: ${{ secrets.GOOGLE_SERVICE_ACCOUNT_JSON }}
+        run: |
+          echo "$GOOGLE_SERVICE_ACCOUNT_JSON" > /tmp/gsa.json
+          echo "GOOGLE_APPLICATION_CREDENTIALS=/tmp/gsa.json" >> $GITHUB_ENV
+
+      - name: Download transcripts from Google Drive
+        env:
+          TZ: Asia/Taipei
+        run: |
+          TARGET_DATE=$(echo "${{ github.event.inputs.target_date }}" | xargs)
+          if [ -z "$TARGET_DATE" ]; then
+            TARGET_DATE=$(TZ='Asia/Taipei' date '+%Y-%m-%d')
+          fi
+          echo "TARGET_DATE=${TARGET_DATE}" >> $GITHUB_ENV
+          mkdir -p transcripts
+          python3 .github/scripts/download_transcripts.py \
+            --folder-id "1Zud6lHXA8Iuqpc0LoVH3mOniMWj4fDJa" \
+            --target-date "$TARGET_DATE" \
+            --output-dir transcripts
+          echo "--- Downloaded transcripts ---"
+          ls -la transcripts/ || echo "No transcripts found"
+
+      - name: Run Claude Code to update war room
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          TZ: Asia/Taipei
+        run: |
+          TRANSCRIPT_COUNT=$(ls transcripts/*.txt 2>/dev/null | wc -l)
+          if [ "$TRANSCRIPT_COUNT" -eq "0" ]; then
+            echo "✅ No transcripts for ${TARGET_DATE}, skipping"
+            exit 0
+          fi
+          echo "Found $TRANSCRIPT_COUNT transcripts for ${TARGET_DATE}"
+          claude -p \
+            --allowedTools "Bash,Read,Write,Edit,Glob,Grep" \
+            --model claude-sonnet-4-6 \
+            --max-budget-usd 15 \
+            --permission-mode bypassPermissions \
+            "目標日期：${TARGET_DATE}。transcripts/ 資料夾中有 ${TRANSCRIPT_COUNT} 份逐字稿已下載完成，請直接用 Read 工具讀取。$(cat .github/prompts/daily-update.md)"
+          echo "--- Checking file changes ---"
+          git diff --stat
+
+      - name: Commit and push if changed
+        run: |
+          git config user.name "awoo-bd-bot"
+          git config user.email "bot@awoo.ai"
+          if git diff --quiet && git diff --staged --quiet; then
+            echo "✅ No changes — no new transcripts today"
+            exit 0
+          fi
+          DATE=$(TZ='Asia/Taipei' date '+%Y/%m/%d')
+          git add index.html data.js
+          git commit -m "📊 團隊戰情更新：${DATE} — 自動更新"
+          git push
+
+      - name: Cleanup credentials
+        if: always()
+        run: rm -f /tmp/gsa.json
